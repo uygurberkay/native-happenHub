@@ -11,7 +11,7 @@ import InputBox from '../../components/Forms/InputBox';
 import SubmitButton from '../../components/Forms/SubmitButton';
 import { useTranslation } from 'react-i18next';
 
-const Login = () => {
+const Login = ({navigation} : any) => {
     const { t } = useTranslation();
     /* States */
     const [email, setEmail] = useState('');
@@ -61,7 +61,12 @@ const Login = () => {
             handleSubmit={handleSubmit}
         />
         <Text style={styles.linkText}>
-            {t('Not registered yet')} ? <Text style={styles.link}>{t('Register')}</Text>
+            {t('Not registered yet')} ? {' '}
+            <Text 
+                style={styles.link}
+                onPress={() => navigation.navigate('Register')}>
+                {t('Register')}
+            </Text>
         </Text>
         </View>
     )

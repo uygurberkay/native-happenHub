@@ -1,0 +1,31 @@
+{
+  "name": "HappenHub",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "repository": "https://github.com/uygurberkay/happenHub.git",
+  "author": "uygurberkay <50241715+uygurberkay@users.noreply.github.com>",
+  "license": "MIT",
+  "scripts": {
+    "setup-project-yarn": "yarn install && cd client && yarn install",
+    "setup-project-npm": "npm i && cd client && npm i",
+    "start" : "nodemon server",
+    "server": "nodemon server",
+    "client": "cd client && yarn start"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "colors": "^1.4.0",
+    "concurrently": "^8.2.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "http-status-codes": "^2.3.0",
+    "mongoose": "^8.0.0",
+    "morgan": "^1.10.0",
+    "nodemon": "^3.0.1"
+  },
+  "devDependencies": {
+    "tslint": "^6.1.3"
+  }
+}

@@ -13,7 +13,7 @@ import SubmitButton from '../../components/Forms/SubmitButton';
 /* Language imports */
 import { useTranslation } from 'react-i18next';
 
-const Register = () => {
+const Register = ({navigation} : any) => {
   const { t } = useTranslation();
   /* States */
   const [name,setName] = useState('');
@@ -69,7 +69,12 @@ const Register = () => {
         handleSubmit={handleSubmit}
       />
       <Text style={styles.linkText}>
-        {t('Already Register')} ? <Text style={styles.link}>{t('Login')}</Text>
+        {t('Already Register')} ? {' '}
+        <Text 
+          style={styles.link}
+          onPress={() => navigation.navigate('Login')}>
+          {t('Login')}
+        </Text>
       </Text>
     </View>
   )
