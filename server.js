@@ -8,6 +8,9 @@ import { StatusCodes } from 'http-status-codes'; // Take it controllers later
 
 dotenv.config()
 
+// routes
+import userRouter from './routes/userRoutes.js'
+
 /* Database Connection */
 connectDB()
 
@@ -22,12 +25,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 /* ROUTES */
-app.get('',(req,res) => {
-    res.status(StatusCodes.OK).json({
-        success: true,
-        message: 'Wellcome to React native Mern Stack'
-    })
-})
+app.use('/api/v1/auth', userRouter)
 
 
 app.listen(process.env.PORT,() => {

@@ -10,7 +10,6 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Please add email'],
         unique: true,
-        match: [/\S+@\S+\.\S+/, 'Please use a valid email address'],
         trim: true,
     },
     password: {
@@ -21,9 +20,14 @@ const userSchema = new mongoose.Schema({
     },
     role: {
         type : String,
+        enum: ['user','proUser','admin'],
         default: 'user',
-    }},
+    },
+    avatar: String,
+    avatarPublicId: String,
+    },
+    
     {timestamps: true}
 );
 
-module.exports = mongoose.model('User', userSchema);
+export default mongoose.model('User', userSchema);
