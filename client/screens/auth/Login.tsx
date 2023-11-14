@@ -4,7 +4,8 @@ import {
     StyleSheet,
     Alert
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
+import { AuthContext } from '../../context/authContext';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -14,6 +15,9 @@ import SubmitButton from '../../components/Forms/SubmitButton';
 import { useTranslation } from 'react-i18next';
 
 const Login = ({navigation} : any) => {
+    /* Global State */
+    const [state, setState] :any = useContext(AuthContext);
+
     const { t } = useTranslation();
     /* States */
     const [email, setEmail] = useState('');
@@ -31,14 +35,14 @@ const Login = ({navigation} : any) => {
         }
         setLoading(false)
         const { data } = await axios.post(
-            'http://192.168.1.107:4000/api/v1/auth/login',
+            '/auth/login',
             { email, password}
         );
-        console.log(data)
-        console.log('Stringify: ', JSON.stringify(data))
+        setState(data)
         await AsyncStorage.setItem('@auth', JSON.stringify(data));
         alert(data && data.message)
-        console.log('Register data : ', {email,password})
+        navigation.navigate('Home')
+        console.log('Login data : ', {email,password})
         } catch (error: any) {
             alert(error?.response.data.message)
             setLoading(false)

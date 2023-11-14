@@ -28,7 +28,7 @@ const InputBox= ({
                 autoComplete={autoComplete}
                 secureTextEntry={secureTextEntry}
                 value={value}
-                onChangeText={(text) => setValue(text)}
+                onChangeText={(text) => setValue(text.toLowerCase())}
             />
         </View>
     )
