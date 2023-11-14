@@ -4,7 +4,6 @@ import dotenv from 'dotenv';
 import chalk from 'colors';
 import morgan from 'morgan';
 import connectDB from './config/db.js'
-import { StatusCodes } from 'http-status-codes'; // Take it controllers later
 
 dotenv.config()
 

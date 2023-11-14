@@ -5,6 +5,8 @@ import {
   Alert
 } from 'react-native';
 import React, {useState} from 'react';
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 /* Component imports */
 import InputBox from '../../components/Forms/InputBox';
@@ -22,7 +24,7 @@ const Register = ({navigation} : any) => {
   const [loading, setLoading] = useState(false);
 
   /* Button Functionality */
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     try {
       setLoading(true)
       if (!name || !email || !password){
@@ -31,8 +33,14 @@ const Register = ({navigation} : any) => {
         return;
       }
       setLoading(false)
+      const { data } = await axios.post(
+        'http://192.168.1.107:4000/api/v1/auth/register',
+        { name, email, password}
+      );
+      alert(data && data.message)
       console.log('Register data : ', {name, email,password})
-    } catch (error) {
+    } catch (error: any) {
+      alert(error?.response.data.message)
       setLoading(false)
       console.log(error)
     }
