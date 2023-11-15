@@ -1,23 +1,8 @@
-import bcrypt from 'bcrypt'
+import { expressjwt } from "express-jwt";
+import dotenv from 'dotenv';
+dotenv.config();
 
-// HASHES THE PASSWORD
-export const hashPassword = (password) => {
-    return new Promise((resolve, reject) => {
-        bcrypt.genSalt(10, (err, salt) => {
-            if (err) {
-            reject(err);
-            }
-            bcrypt.hash(password, salt, (err, hash) => {
-            if (err) {
-                reject(err);
-            }
-            resolve(hash);
-            });
-        });
-        });
-    };
-
-// COMPARE || DECRYPT FUNCITON
-export const comparePassword = (password, hashed) => {
-    return bcrypt.compare(password, hashed);
-};
+export const authMiddleware = expressjwt({
+    secret: process.env.JWT_SECRET,
+    algorithms: ['HS256'],
+});

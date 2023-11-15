@@ -4,7 +4,7 @@ import userModel from "../models/userModel.js";
 import { 
     hashPassword, 
     comparePassword 
-} from '../middleware/authMiddleware.js';
+} from '../utils/passwordUtils.js';
 
 /* Controllers */
 
