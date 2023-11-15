@@ -8,5 +8,6 @@
     "Please wait..." : "Please wait...",
     "Already Register" : "Already Register",
     "Login" : "Login",
-    "Not registered yet" : "Not registered yet"
+    "Not registered yet" : "Not registered yet",
+    "Logout Successful" : "Logout Successful"
 }

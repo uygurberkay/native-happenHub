@@ -14,7 +14,7 @@ const AuthProvider = ({children}: any) => {
     })
 
     // Default axios settings
-    axios.defaults.baseURL = 'http://192.168.1.107:4000/api/v1'
+    axios.defaults.baseURL = 'http://192.168.1.107:4000/api/v1';
 
     // Initial local storage data
     useEffect(() => {
