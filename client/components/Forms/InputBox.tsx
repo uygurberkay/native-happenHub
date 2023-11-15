@@ -4,6 +4,7 @@ import React from 'react'
 interface InputBoxProps {
     value: any;
     setValue: any;
+    customStyle?: any;
     autoComplete?: any;
     inputTitle: string | undefined;
     secureTextEntry?: boolean | undefined;
@@ -16,13 +17,14 @@ const InputBox= ({
     autoComplete, 
     secureTextEntry=false,
     value,
-    setValue
+    setValue,
+    customStyle,
 }: InputBoxProps) => {
     return (
         <View>
             <Text>{inputTitle}</Text>
             <TextInput 
-                style={styles.inputBox}
+                style={customStyle ? customStyle : styles.inputBox}
                 autoCorrect={false}
                 keyboardType={keyboardType}
                 autoComplete={autoComplete}

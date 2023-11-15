@@ -132,7 +132,9 @@ export const updateUserController = async (req,res) => {
             name: name || user.name,
             password: hashedPassword || user.password
         }, {new: true});
+
         updatedUser.password = undefined;
+        
         res.status(StatusCodes.OK).json({
             success: true,
             message: 'Profile Updated Please Login',
