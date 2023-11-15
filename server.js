@@ -9,6 +9,7 @@ dotenv.config()
 
 // routes
 import userRouter from './routes/userRoutes.js'
+import postRouter from './routes/postRoutes.js'
 
 /* Database Connection */
 connectDB()
@@ -25,7 +26,7 @@ if (process.env.NODE_ENV === 'development') {
 
 /* ROUTES */
 app.use('/api/v1/auth', userRouter)
-
+app.use("/api/v1/post", postRouter);
 
 app.listen(process.env.PORT,() => {
     console.log(`Server is running at PORT: ${process.env.PORT}`.bgGreen.white)
