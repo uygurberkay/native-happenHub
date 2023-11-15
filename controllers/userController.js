@@ -8,7 +8,7 @@ import {
 
 /* Controllers */
 
-/* Register */
+/* REGİSTER USER */
 export const registerController = async (req,res) => {
     try {
         const {name , email, password} = req.body;
@@ -59,7 +59,7 @@ export const registerController = async (req,res) => {
     };
 }
 
-/* Login */
+/* LOGIN USER */
 export const loginController = async (req,res) => {
     try {
         const {email,password} = req.body;
@@ -104,6 +104,45 @@ export const loginController = async (req,res) => {
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
             success:false,
             message: 'Error in Register API',
+            error,
+        })
+    }
+}
+
+/* UPDATE USER */
+
+export const updateUserController = async (req,res) => {
+    try {
+        const {name, password, email, avatar} = req.body;
+
+        // User Validate
+        const user = await userModel.findOne({email})
+
+        // Password Validate
+        if(password && password.length < 6) {
+            return res.status(StatusCodes.BAD_REQUEST).json({
+                success: false,
+                message: "Password must be at least 6 characters long",
+            })
+        }
+        const hashedPassword = password ? await hashPassword(password) : undefined;
+
+        // Updated User
+        const updatedUser = await userModel.findOneAndUpdate({email}, {
+            name: name || user.name,
+            password: hashedPassword || user.password
+        }, {new: true});
+        updatedUser.password = undefined;
+        res.status(StatusCodes.OK).json({
+            success: true,
+            message: 'Profile Updated Please Login',
+            updatedUser,
+        })
+    } catch (error) {
+        console.log(error)
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+            success: false,
+            message: 'Error in User Update API',
             error,
         })
     }
