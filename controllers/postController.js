@@ -24,21 +24,29 @@ export const createPostController = async (req,res) => {
         })
     } catch (error) {
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-            success: true,
+            success: false,
             messsage: 'Error in Create Post API',
             error
         })
     }
 }
-
-export const getAllPostsContoller = async () => {
+/* GET ALL POST */
+export const getAllPostsContoller = async (req,res) => {
     try {
-        
+        const posts = await postModel
+            .find()
+            .populate('postedBy', '_id name')
+            .sort({createdAt: -1})
+        res.status(StatusCodes.OK).json({
+            success: true,
+            message: 'All Posts Data',
+            posts,
+        })
     } catch (error) {
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-            success: true,
+            success: false,
             messsage: 'Error in Create Post API',
-            error
+            error,
         })
     }
 }
@@ -48,7 +56,7 @@ export const getUserPostsController = async (req,res) => {
         
     } catch (error) {
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-            success: true,
+            success: false,
             messsage: 'Error in Create Post API',
             error
         })
@@ -60,7 +68,7 @@ export const deletePostController = async (req,res) => {
         
     } catch (error) {
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-            success: true,
+            success: false,
             messsage: 'Error in Create Post API',
             error
         })
@@ -72,7 +80,7 @@ export const updatePostController = async (req,res) => {
         
     } catch (error) {
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-            success: true,
+            success: false,
             messsage: 'Error in Create Post API',
             error
         })
