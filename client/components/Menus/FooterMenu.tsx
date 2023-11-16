@@ -21,35 +21,35 @@ const FooterMenu = () => {
                     name='home' 
                     style={styles.iconStyle}
                     color={route.name === 'Home' ? 'orange': undefined}/>
-                <Text>Home</Text>
+                <Text>{t('Home')}</Text>
             </Pressable>
             <Pressable onPress={() => navigation.navigate('Post')}>
                 <FontAwesome5 
                     name='plus-circle' 
                     style={styles.iconStyle} 
                     color={route.name === 'Post' ? 'orange': undefined}/>
-                <Text>Post</Text>
+                <Text>{t('Post')}</Text>
             </Pressable>
             <Pressable onPress={() => navigation.navigate('About')}>
                 <FontAwesome5 
                     name='info-circle' 
                     style={styles.iconStyle}
                     color={route.name === 'About' ? 'orange': undefined}/>
-                <Text>About</Text>
+                <Text>{t('About')}</Text>
             </Pressable>
             <Pressable onPress={() => navigation.navigate('Account')}>
                 <FontAwesome5 
                     name='user-edit' 
                     style={styles.iconStyle}
                     color={route.name === 'Account' ? 'orange': undefined}/>
-                <Text>Account</Text>
+                <Text>{t('Account')}</Text>
             </Pressable>
             <Pressable onPress={() => navigation.navigate('Language')}>
                 <FontAwesome5 
                     name='language' 
                     style={styles.iconStyle}
                     color={route.name === 'Language' ? 'orange': undefined}/>
-                <Text>Language</Text>
+                <Text>{t('Language')}</Text>
             </Pressable>
         </View>
     )

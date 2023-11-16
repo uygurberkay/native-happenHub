@@ -10,5 +10,12 @@
     "Login" : "Login",
     "Not registered yet" : "Not registered yet",
     "Logout Successful" : "Logout Successful",
-    "Updated" : "Updated"
+    "Updated" : "Updated",
+    "Home": "Home",
+    "Post": "Post",
+    "About": "About",
+    "Account": "Account",
+    "Language": "Language",
+    "Add post descrition": "Add post descrition",
+    "Add post title": "Add post title"
 }

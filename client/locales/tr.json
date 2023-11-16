@@ -10,5 +10,12 @@
     "Login" : "Giriş yap",
     "Not registered yet" : "Üye değil misin",
     "Logout Successful" : "Çıkış başarılı",
-    "Updated" : "Güncellendi"
+    "Updated" : "Güncellendi",
+    "Home": "Ana Sayfa",
+    "Post": "Post",
+    "About": "Hakkında",
+    "Account": "Hesap",
+    "Language": "Dil Seçimi",
+    "Add post descrition": "Açıklama ekle",
+    "Add post title": "Başlık ekle"
 }

@@ -22,7 +22,6 @@ export const createPostController = async (req,res) => {
             message: 'Post Created Successfully',
             post,
         })
-        console.log(req)
     } catch (error) {
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
             success: true,
