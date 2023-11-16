@@ -51,9 +51,15 @@ export const getAllPostsContoller = async (req,res) => {
     }
 }
 
+/* GET USER POST */
 export const getUserPostsController = async (req,res) => {
     try {
-        
+        const userPosts = await postModel.find({postedBy: req.auth._id})
+        res.status(StatusCodes.OK).json({
+            success: true,
+            message: 'User Posts',
+            userPosts,
+        })
     } catch (error) {
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
             success: false,

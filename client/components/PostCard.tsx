@@ -28,10 +28,12 @@ const PostCard: React.FC<PostCardProps>  = ({posts}) => {
                         <Text style={styles.desc}> {post?.description}</Text>
                     </View>
                     <View style={styles.footer}>
-                        <Text> 
-                            <FontAwesome5 name='user-alt' color={'orange'}/>{'  '}
-                            {post?.postedBy?.name}
-                        </Text>
+                        {post?.postedBy?.name && (
+                            <Text> 
+                                <FontAwesome5 name='user-alt' color={'orange'}/>{'  '}
+                                {post?.postedBy?.name}
+                            </Text>
+                        )}
                         <Text> 
                             <FontAwesome5 name='clock' color={'orange'}/>{'  '}
                             {moment( post?.createdAt).format('DD.MM.YYYY')}

@@ -30,12 +30,19 @@ const FooterMenu = () => {
                     color={route.name === 'Post' ? 'orange': undefined}/>
                 <Text>{t('Post')}</Text>
             </Pressable>
-            <Pressable onPress={() => navigation.navigate('About')}>
+            {/* <Pressable onPress={() => navigation.navigate('About')}>
                 <FontAwesome5 
                     name='info-circle' 
                     style={styles.iconStyle}
                     color={route.name === 'About' ? 'orange': undefined}/>
                 <Text>{t('About')}</Text>
+            </Pressable> */}
+            <Pressable onPress={() => navigation.navigate('MyPosts')}>
+                <FontAwesome5 
+                    name='list' 
+                    style={styles.iconStyle}
+                    color={route.name === 'MyPosts' ? 'orange': undefined}/>
+                <Text>{t('My Posts')}</Text>
             </Pressable>
             <Pressable onPress={() => navigation.navigate('Account')}>
                 <FontAwesome5 
