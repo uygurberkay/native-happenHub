@@ -6,6 +6,8 @@ import {
 import React from 'react'
 /* Language imports */
 import { useTranslation } from 'react-i18next';
+// @ts-ignore
+import { Styles } from '../../constants/Color';
 
 interface SubmitBtnProps {
     loading?: boolean;
@@ -17,8 +19,8 @@ interface SubmitBtnProps {
 
 const SubmitButton = ({
     buttonTitle, 
-    buttonColor='#1e2225', 
-    textColor='#ffffff', 
+    buttonColor= Styles.colors.bluePrimary, 
+    textColor= Styles.colors.white, 
     handleSubmit,
     loading
 }: SubmitBtnProps) => {
@@ -37,11 +39,16 @@ const SubmitButton = ({
 
 const styles = StyleSheet.create({
     submitBtn: {
-        height: 50,
+        height: 60,
         marginHorizontal: 25,
-        borderRadius: 50,
+        borderRadius: 10,
         justifyContent: 'center',
         marginBottom: 20,
+        elevation: 8,
+        shadowColor: Styles.colors.lightCharcoal,
+        shadowOpacity: .4,
+        shadowRadius: 6,
+        shadowOffset: { width: 1, height: 1} ,
     },
     btnText: {
         textAlign: 'center',

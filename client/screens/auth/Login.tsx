@@ -2,7 +2,8 @@ import {
     View, 
     Text, 
     StyleSheet,
-    Alert
+    Alert,
+    Image
 } from 'react-native';
 import React, {useState, useContext} from 'react';
 import { AuthContext } from '../../context/authContext';
@@ -13,6 +14,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import InputBox from '../../components/Forms/InputBox';
 import SubmitButton from '../../components/Forms/SubmitButton';
 import { useTranslation } from 'react-i18next';
+import LogoContainer from '../../components/LogoContainer';
+// @ts-ignore
+import { Styles } from '../../constants/Color';
 
 const Login = ({navigation} : any) => {
     /* Global State */
@@ -55,53 +59,69 @@ const Login = ({navigation} : any) => {
     }
     getLocalStorageData()
     return (
-        <View style={styles.container}>
-        <Text style={styles.pageTitle}>{t('Login')}</Text>
-        <View style={{marginHorizontal: 20}}>
-            <InputBox 
-            inputTitle={t('Email')}
-            keyboardType={'email-address'}
-            autoComplete={'email'}
-            value={email}
-            setValue={setEmail}
+        <View style={styles.outerContainer}>
+            <View style={styles.headerContainer}>
+                <LogoContainer 
+                    displayText={true}/>
+            </View>
+            <View style={styles.innerContainer}>
+            <Text style={styles.pageTitle}>{t('Login')}</Text>
+            <View style={{marginHorizontal: 20}}>
+                <InputBox 
+                inputTitle={t('Email')}
+                keyboardType={'email-address'}
+                autoComplete={'email'}
+                value={email}
+                setValue={setEmail}
+                />
+                <InputBox 
+                inputTitle={t('Password')}
+                keyboardType={'number-pad'}
+                autoComplete={'password'}
+                secureTextEntry={true}
+                value={password}
+                setValue={setPassword}
+                />
+            </View>
+            <SubmitButton 
+                buttonTitle={t('Login')}
+                loading={loading}
+                handleSubmit={handleSubmit}
             />
-            <InputBox 
-            inputTitle={t('Password')}
-            keyboardType={'number-pad'}
-            autoComplete={'password'}
-            secureTextEntry={true}
-            value={password}
-            setValue={setPassword}
-            />
-        </View>
-        <SubmitButton 
-            buttonTitle={t('Login')}
-            loading={loading}
-            handleSubmit={handleSubmit}
-        />
-        <Text style={styles.linkText}>
-            {t('Not registered yet')} ? {' '}
-            <Text 
-                style={styles.link}
-                onPress={() => navigation.navigate('Register')}>
-                {t('Register')}
+            <Text style={styles.linkText}>
+                {t('Not registered yet')} ? {' '}
+                <Text 
+                    style={styles.link}
+                    onPress={() => navigation.navigate('Register')}>
+                    {t('Register')}
+                </Text>
             </Text>
-        </Text>
+            </View>
         </View>
+
     )
 }
 
 const styles = StyleSheet.create({
-    container: {
+    outerContainer: {
         flex: 1,
+        backgroundColor: Styles.colors.lightCoral,
+    },
+    headerContainer: {
+        flex: 1,
+    },
+    innerContainer: {
+        flex:1,
         justifyContent: 'center',
-        backgroundColor: '#e1d5c9' // Change it later
+        borderRadius: 40,
+        paddingVertical: 24,
+        backgroundColor: Styles.colors.white,
     },
     pageTitle: {
-        fontSize: 40,
+        fontSize: 24,
         fontWeight: 'bold',
         textAlign: 'center',
-        color: '#1e2225', // Change it later
+        color: Styles.colors.lightcharcoal,
         marginBottom: 20,
     },
     inputBox: {
@@ -117,7 +137,7 @@ const styles = StyleSheet.create({
         textAlign : 'center',
     },
     link: {
-        color: '#359707'
+        color: Styles.colors.bluePrimary,
     }
 })
 
