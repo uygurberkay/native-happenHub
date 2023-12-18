@@ -10,7 +10,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTranslation } from 'react-i18next';
 
-const HeaderMenu = () => {
+const LogoutButton = () => {
     const { t } = useTranslation()
     const [state, setState]: any = useContext(AuthContext);
 
@@ -46,4 +46,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default HeaderMenu
+export default LogoutButton

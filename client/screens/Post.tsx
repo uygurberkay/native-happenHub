@@ -85,9 +85,9 @@ const Post = ({navigation}:any) => {
                     </Pressable>
                 </View>
             </ScrollView>
-            <View style={{ flex: 1, justifyContent: 'flex-end' }}>
+            {/* <View style={{ flex: 1, justifyContent: 'flex-end' }}>
                 <FooterMenu/>
-            </View>
+            </View> */}
         </View>
     )
 }

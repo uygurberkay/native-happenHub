@@ -1,27 +1,29 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import React, { useContext } from 'react'
 import FooterMenu from '../components/Menus/FooterMenu';
 import { AuthContext } from '../context/authContext';
+import { BlurView } from 'expo-blur';
 
-const About = () => {
+const CreateTask = () => {
     const [state, setState]: any = useContext(AuthContext);
 
     return (
         <View style={styles.container}>
-            <View style={{ flex: 1, justifyContent: 'flex-end' }}>
-                <FooterMenu/>
-            </View>
+            <BlurView>
+            </BlurView>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
+        backgroundColor: 'purple',
         flex: 1,
         margin: 10,
         justifyContent: "space-between",
         marginTop: 40,
     },
+
 });
 
-export default About
+export default CreateTask
