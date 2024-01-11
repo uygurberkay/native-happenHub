@@ -1,9 +1,9 @@
 import { View, Text, StyleSheet, Image, TextInput, Pressable, ScrollView } from 'react-native'
 import React, { useContext, useState } from 'react'
 import { AuthContext } from '../context/authContext';
-import FooterMenu from '../components/Menus/FooterMenu';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
+import LogoutButton from '../components/Ui/LogoutButton';
 
 const Account = () => {
     /* Global state */
@@ -28,6 +28,7 @@ const Account = () => {
             });
             setLoading(false)
             let UD = JSON.stringify(data);
+            console.log('UD --- >',UD)
             setState({ ...state, user: UD?.updatedUser });
             alert(data && data.message);
         } catch (error: any) {
@@ -96,11 +97,9 @@ const Account = () => {
                         {loading ? t('Updated') : t('Update Profile')}
                     </Text>
                 </Pressable>
+                <LogoutButton />
             </View>
             </ScrollView>
-            {/* <View style={{ flex: 1, justifyContent: 'flex-end' }}>
-                <FooterMenu/>
-            </View> */}
         </View>
     )
 }

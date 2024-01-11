@@ -28,7 +28,7 @@ const AuthProvider = ({children}: any) => {
 
     // Default axios settings
     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-    axios.defaults.baseURL = 'http://192.168.1.106:4000/api/v1';
+    axios.defaults.baseURL = 'http://192.168.1.105:4000/api/v1';
 
     return (
         <AuthContext.Provider value={[state,setState]}>

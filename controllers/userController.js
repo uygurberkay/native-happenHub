@@ -149,3 +149,237 @@ export const updateUserController = async (req,res) => {
         })
     }
 }
+
+/* ACCESS ALL USER EXCEPT LOGINED */
+export const getUsersExceptLoggedIn =  (req,res) => {
+
+        /* Gets loggedInUser */
+        const loggedInUserId = req.params.userId;
+        userModel.find({ _id: { $ne: loggedInUserId } })
+            .then((users) => {
+            res.status(StatusCodes.OK).json(users);
+            })
+            .catch((error) => {
+            console.log("Error retrieving users", err);
+            res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+                success: false,
+                message: 'Error retrieving users',
+                error,
+            });
+            });
+}
+
+/* FRIEND REQUESTS */
+
+export const friendRequests = async (req,res) => {
+    try {
+        /* Gets currentUserId and selectedUserId  */
+        const { currentUserId, selectedUserId } = req.body;
+
+        /* Update the recepient's friendRequestsArray */
+        await userModel.findByIdAndUpdate(selectedUserId, {
+            $push: { friendRequests: currentUserId },
+        });
+
+        /* Update the sender's sentFriendRequests array */
+        await userModel.findByIdAndUpdate(currentUserId, {
+            $push: { sentFriendRequests: selectedUserId },
+        });
+        res.status(StatusCodes.OK).json({
+            success: true,
+            message: 'Friend requests found',
+        })
+
+    } catch (error) {
+        console.log(error)
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+            success: false,
+            message: 'Friend requests does not found',
+            error,
+        })
+    }
+}
+
+/* FRIEND REQUEST BY ID */
+
+export const friendRequestsById = async (req,res) => {
+    try {
+        const { userId } = req.params;
+        
+            //fetch the user document based on the User id
+            const user = await userModel.findById(userId)
+            .populate("friendRequests", "name email image")
+            .lean();
+
+        const friendRequests = user.friendRequests;
+
+        res.status(StatusCodes.OK).json({
+            success: true,
+            message: 'Friend requests ByID found',
+            friendRequests
+        })
+
+    } catch (error) {
+        console.log(error)
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+            success: false,
+            message: 'Friend requests does not found',
+            error,
+        })
+    }
+}
+
+/* FRIEND LISTS */
+
+export const getFriendList = async (req,res) => {
+    try {
+        const { userId } = req.params;
+
+        const user = await userModel.findById(userId).populate(
+            "friends",
+            "name email image"
+        );
+        const acceptedFriends = user.friends;
+
+        res.status(StatusCodes.OK).json({
+            success: true,
+            message: 'Friend list',
+            acceptedFriends
+        })
+
+    } catch (error) {
+        console.log(error)
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+            success: false,
+            message: 'Friend requests does not found',
+            error,
+        })
+    }
+}
+
+/* FRIEND REQUEST ACCEPT */
+
+export const friendRequestAccept = async (req,res) => {
+    try {
+        const { senderId, recipientId } = req.body;
+
+        /* Sender and Receipent */
+        const sender = await userModel.findById(senderId);
+        const recepient = await userModel.findById(recipientId);
+
+        /* Push to array */
+        sender.friends.push(recipientId);
+        recepient.friends.push(senderId);
+
+        recepient.friendRequests = recepient.friendRequests.filter(
+        (request) => request.toString() !== senderId.toString()
+        );
+
+        sender.sentFriendRequests = sender.sentFriendRequests.filter(
+        (request) => request.toString() !== recipientId.toString
+        );
+
+        await sender.save();
+        await recepient.save();
+
+        res.status(StatusCodes.OK).json({
+            success: true,
+            message: 'Friend Request accepted successfully',
+        })
+
+    } catch (error) {
+        console.log(error)
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+            success: false,
+            message: 'Friend requests does not found',
+            error,
+        })
+    }
+}
+
+/* SINGLE USER DETAILES */
+
+export const getUserDetails = async (req,res) => {
+    try {
+        const { userId } = req.params;
+
+        /* Recipient Info getting by userId */
+        const recipientId = await userModel.findById(userId);
+
+        res.status(StatusCodes.OK).json({
+            success: true,
+            message: 'Friend list',
+            recipientId
+        })
+
+    } catch (error) {
+        console.log(error)
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+            success: false,
+            message: 'Internal Server Error',
+            error,
+        })
+    }
+}
+
+
+/* SENDS FRIEND REQUEST */
+
+export const sendFriendRequest = async (req,res) => {
+    try {
+        const {userId} = req.params;
+        const user = await userModel.findById(userId)
+            .populate("sentFriendRequests","name email image")
+            .lean();
+
+        const sentFriendRequests = user.sentFriendRequests;
+
+        res.status(StatusCodes.OK).json({
+            success: true,
+            message: 'Friend request send',
+            sentFriendRequests
+        })
+
+    } catch (error) {
+        console.log(error)
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+            success: false,
+            message: 'Internal Server Error',
+            error,
+        })
+    }
+}
+
+/*  */
+
+export const showFriendList = async (req,res) => {
+    try {
+        const {userId} = req.params;
+
+        userModel.findById(userId)
+            .populate("friends")
+            .then((user) => {
+                if(!user){
+                    return res.status(StatusCodes.NOT_FOUND).json({
+                        message: 'User not found'
+                    })
+                }
+
+                /* Maps all the friends userId has */
+                const friendIds = user.friends.map((friend) => friend._id);
+
+                res.status(StatusCodes.OK).json({
+                    success: true,
+                    message: 'Friend request send',
+                    friendIds
+                })
+            })
+    } catch (error) {
+        console.log(error)
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+            success: false,
+            message: 'Internal Server Error',
+            error,
+        })
+    }
+}

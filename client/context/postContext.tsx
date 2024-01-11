@@ -18,9 +18,7 @@ const PostProvider = ({children} : any) => {
             const {data} = await axios.get('/post/get-all-post')
             setLoading(false)
             setPosts(data?.posts)
-            console.log(data)
         } catch (error) {
-            console.log(error)
             setLoading(false)
         }
     }

@@ -18,13 +18,33 @@ const userSchema = new mongoose.Schema({
         min: 6,
         max: 64,
     },
+    image: {
+        type: String,
+        required: false,
+    },
     role: {
         type : String,
         enum: ['user','proUser','admin'],
         default: 'user',
     },
-    avatar: String,
-    avatarPublicId: String,
+    friendRequests: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User",
+        },
+    ],
+    friends: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User",
+        },
+    ],
+    sentFriendRequests: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User",
+        },
+    ],
     },
     
     {timestamps: true}

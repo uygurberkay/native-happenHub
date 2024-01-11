@@ -2,7 +2,7 @@ import { View, Text, Pressable, StyleSheet, Image } from 'react-native'
 import React from 'react'
 import { EvilIcons } from '@expo/vector-icons';
 // @ts-ignore
-import { Styles } from '../constants/Color';
+import { Styles } from '../../constants/Color';
 
 interface IconButtonProps {
     color: string | undefined;

@@ -15,17 +15,19 @@ import Home from '../../screens/Home';
 import Login from '../../screens/auth/Login';
 import Register from '../../screens/auth/Register';
 import LanguageSelector from '../LanguageSelector';
-import Post from '../../screens/Post';
+import Message from '../../screens/Message';
 import Account from '../../screens/Account';
 import { Image, Text, } from 'react-native';
-import IconButton from '../IconButton';
+import IconButton from '../Ui/IconButton';
 // @ts-ignore
 import { Styles } from '../../constants/Color';
 import CreateTask from '../../screens/CreateTask';
 import { View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 
 const BottomNavigation = () => {
     const BottomTab = createBottomTabNavigator();
+    const { t } = useTranslation()
     return (
         <BottomTab.Navigator
             screenOptions={({navigation}) => ({
@@ -50,15 +52,17 @@ const BottomNavigation = () => {
                 name="Agenda" 
                 component={Home} 
                 options={{
-                    headerTitle: 'Agenda', // Will be change later, I think
+                    tabBarLabel: `${t('Agenda')}`,
+                    headerTitle: `${t('Agenda')}`, // Will be change later, I think
                     tabBarIcon: ({color}) => <AntDesign name="calendar" size={20} color={color} />
                 }}
             />
             <BottomTab.Screen 
                 name="Message" 
-                component={Post} 
+                component={Message} 
                 options={{
-                    headerTitle: 'Message',
+                    tabBarLabel: `${t('Message')}`,
+                    headerTitle: `${t('Message')}`,
                     tabBarIcon: ({color}) => <Feather name="message-square" size={20} color={color} />
                 }}
             />
@@ -66,7 +70,8 @@ const BottomNavigation = () => {
                 name="Create" 
                 component={CreateTask} 
                 options={{
-                    tabBarLabelStyle: {display: 'none', } ,
+                    tabBarLabelStyle: {display: 'none', },
+                    headerTitle: `${t('Create')}`,
                     tabBarIconStyle: {backgroundColor: 'purple'},
                     tabBarIcon: ({color}) => (
                         <View style={{ 
@@ -90,7 +95,8 @@ const BottomNavigation = () => {
                 name="Notification" 
                 component={LanguageSelector} 
                 options={{
-                    headerTitle: 'Notification',
+                    headerTitle: `${t('Notification')}`,
+                    tabBarLabel: `${t('Notification')}`,
                     tabBarIcon: ({color}) => <Ionicons name="notifications-outline" size={20} color={color} />
                 }}
             />
@@ -98,7 +104,8 @@ const BottomNavigation = () => {
                 name="Profile" 
                 component={Account} 
                 options={{
-                    headerTitle: 'My Profile',
+                    tabBarLabel: `${t('My Profile')}`,
+                    headerTitle: `${t('My Profile')}`,
                     tabBarIcon: ({color}) => <AntDesign name="user" size={20} color={color} />
                 }}
             />
@@ -125,48 +132,6 @@ const ScreenMenu = () => {
                     options={{
                         headerShown: false,
                     }}/>
-                    {/* <Stack.Screen 
-                        name="Home" 
-                        component={Home} 
-                        options={{
-                            title: 'HappenHub',
-                            headerRight: () => <LogoutButton/>
-                        }}/>
-                    <Stack.Screen 
-                        name="Post" 
-                        component={Post} 
-                        options={{
-                            headerBackTitle: 'Back',
-                            headerRight: () => <LogoutButton/>
-                        }}/>
-                    <Stack.Screen 
-                        name="About" 
-                        component={About} 
-                        options={{
-                            headerBackTitle: 'Back',
-                            headerRight: () => <LogoutButton/>
-                        }}/>
-                    <Stack.Screen 
-                        name="MyPosts" 
-                        component={MyPosts} 
-                        options={{
-                            headerBackTitle: 'Back',
-                            headerRight: () => <LogoutButton/>
-                        }}/>
-                    <Stack.Screen 
-                        name="Account" 
-                        component={Account} 
-                        options={{
-                            headerBackTitle: 'Back',
-                            headerRight: () => <LogoutButton/>
-                        }}/>
-                    <Stack.Screen 
-                        name="Language" 
-                        component={LanguageSelector} 
-                        options={{
-                            headerBackTitle: 'Back',
-                            headerRight: () => <LogoutButton/>
-                        }}/> */}
                 </>
                 ): (
                 <>

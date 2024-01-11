@@ -14,7 +14,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import InputBox from '../../components/Forms/InputBox';
 import SubmitButton from '../../components/Forms/SubmitButton';
 import { useTranslation } from 'react-i18next';
-import LogoContainer from '../../components/LogoContainer';
+import LogoContainer from '../../components/Ui/LogoContainer';
 // @ts-ignore
 import { Styles } from '../../constants/Color';
 
@@ -50,7 +50,7 @@ const Login = ({navigation} : any) => {
         } catch (error: any) {
             alert(error?.response.data.message)
             setLoading(false)
-            console.log(error)
+            // console.log(error)
         }
     };
     const getLocalStorageData = async () => {

@@ -6,7 +6,6 @@ import {
 } from 'react-native'
 import React, { useContext } from 'react'
 import { AuthContext } from '../context/authContext'
-import FooterMenu from '../components/Menus/FooterMenu';
 import { PostContext } from '../context/postContext';
 import PostCard from '../components/PostCard';
 
@@ -19,9 +18,7 @@ const Home = () => {
             <ScrollView>
                 <PostCard posts={posts}/>
             </ScrollView>
-            {/* <View style={{backgroundColor: '#ffffff'}}>
-                <FooterMenu/>
-            </View> */}
+
         </View>
     )
 }

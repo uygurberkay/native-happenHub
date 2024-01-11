@@ -15,7 +15,7 @@ import SubmitButton from '../../components/Forms/SubmitButton';
 
 /* Language imports */
 import { useTranslation } from 'react-i18next';
-import LogoContainer from '../../components/LogoContainer';
+import LogoContainer from '../../components/Ui/LogoContainer';
 // @ts-ignore
 import { Styles } from '../../constants/Color';
 
@@ -53,7 +53,7 @@ const Register = ({navigation} : any) => {
     } catch (error: any) {
       alert(error?.response.data.message)
       setLoading(false)
-      console.log(error)
+      // console.log(error)
     }
   };
   return (

@@ -1,10 +1,9 @@
 import { View, Text, ScrollView, StyleSheet } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import FooterMenu from '../components/Menus/FooterMenu'
 import PostCard from '../components/PostCard'
 import axios from 'axios';
 
-const MyPosts = () => {
+const Calendar = () => {
     /* Local state */
     const [posts, setPosts] : any = useState([]);
     const [loading, setLoading] : any = useState(false);
@@ -18,7 +17,6 @@ const MyPosts = () => {
             setPosts(data?.userPosts)
         } catch (error) {
             setLoading(false)
-            console.log(error)
             alert(error)
         }
     }
@@ -31,9 +29,6 @@ const MyPosts = () => {
             <ScrollView>
                 <PostCard posts={posts} />
             </ScrollView>
-            {/* <View style={{ backgroundColor: "#ffffff" }}>
-            <FooterMenu />
-            </View> */}
         </View>
     )
 }
@@ -46,4 +41,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default MyPosts
+export default Calendar

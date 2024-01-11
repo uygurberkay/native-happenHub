@@ -1,7 +1,7 @@
 import { View, Text, Image, StyleSheet, useWindowDimensions } from 'react-native'
 import React from 'react'
 // @ts-ignore
-import { Styles } from '../constants/Color'
+import { Styles } from '../../constants/Color'
 import { useTranslation } from 'react-i18next'
 
 interface LogoContainerProps {
@@ -11,7 +11,7 @@ interface LogoContainerProps {
 const LogoContainer = ({displayText}: LogoContainerProps) => {
     const { t } = useTranslation()
     const {height, width} = useWindowDimensions()
-    console.log(height)
+    // console.log(height)
     let pTop = 60;
     if(height > 700) {
         pTop = 100;
@@ -19,7 +19,7 @@ const LogoContainer = ({displayText}: LogoContainerProps) => {
     return (
         <View style={{...styles.container, paddingTop: pTop}}>
             <View style={styles.imageContainer}>
-                <Image source={require('../assets/images/Logo.png')}/>
+                <Image source={require('../../assets/images/Logo.png')}/>
             </View>
             <View style={styles.textContainer}>
                 <Text style={styles.title}>HappenHub</Text>
