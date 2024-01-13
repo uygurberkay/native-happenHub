@@ -1,74 +1,97 @@
-import { StyleSheet, Text, View, Pressable, Image } from "react-native";
-import React, { useContext, useState, useEffect } from "react";
-import { AuthContext } from "../../context/authContext";
+    import { StyleSheet, Text, View, Pressable, Image } from "react-native";
+    import React, { useContext, useState, useEffect } from "react";
+    import { AuthContext } from "../../../context/authContext";
+    import axios from "axios";
 
-const Friends = ({ item }: any) => {
+    interface UserProps {
+        item: {
+            _id: String;
+            name: String;
+            email: String;
+            password: String;
+            image: any;
+            role: String;
+            friendRequests: String[];
+            friends: String[];
+            sentFriendRequests: String[];
+            createdAt: Date;
+            updatedAt: Date;
+        }
+    }
+
+    const User = ({ item }: UserProps) => {
     const [state, setState]: any = useContext(AuthContext);
     const { user, token } = state;
     const [requestSent, setRequestSent] = useState(false);
     const [friendRequests, setFriendRequests] = useState([]);
     const [userFriends, setUserFriends] = useState([]);
-
     const userId = user._id;
-
+        console.log(userId)
     useEffect(() => {
-    const fetchFriendRequests = async () => {
-        try {
-            const response = await fetch(
-            `http://192.168.1.105:8000/friend-requests/sent/${userId}`
-            );
+        const fetchFriendRequests = async () => {
+            try {
+                /* Gets all friend request send to spesific userID */
+                const response = await axios.get(
+                    `/auth/friend-requests/sent/${userId}`
+                );
 
-            const data = await response.json();
-            if (response.ok) {
-            setFriendRequests(data);
-            } else {
-            console.log("error", response.status);
+                const data = response.data;
+                if (response.status === 200) {
+                    setFriendRequests(data);
+                } else {
+                    console.log("error", response.status);
+                }
+                console.log('Data --> ', data);
+            } catch (error) {
+                console.log("error", error);
             }
-        } catch (error) {
-            console.log("error", error);
-        }
         };
-
+    
         fetchFriendRequests();
     }, []);
 
     useEffect(() => {
         const fetchUserFriends = async () => {
-        try {
-            const response = await fetch(`http://192.168.1.105:8000/friends/${userId}`);
-
-            const data = await response.json();
-
-            if (response.ok) {
-            setUserFriends(data);
-            } else {
-            console.log("error retrieving user friends", response.status);
+            try {
+                const response = await axios.get(
+                    `/auth/friends/${userId}`
+                );
+            
+                const data = response.data;
+                if (response.status === 200) {
+                    setUserFriends(data);
+                } else {
+                    console.log("error retrieving user friends", response.status);
+                }
+            } catch (error) {
+                console.log("Error message", error);
             }
-        } catch (error) {
-            console.log("Error message", error);
-        }
         };
 
         fetchUserFriends();
     }, []);
-    const sendFriendRequest = async (currentUserId: any, selectedUserId: any) => {
-        try {
-        const response = await fetch("http://192.168.1.105:8000/friend-request", {
-            method: "POST",
-            headers: {
-            "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ currentUserId, selectedUserId }),
-        });
 
-        if (response.ok) {
-            setRequestSent(true);
-        }
+    const sendFriendRequest = async (currentUserId: any, selectedUserId: any) => {
+        console.log(currentUserId, ' and ', selectedUserId);
+    
+        try {
+            const response = await axios.post(
+                "/auth/friend-request",  
+                {
+                    currentUserId,
+                    selectedUserId,
+                }
+            );
+    
+            if (response.status === 200) {
+                setRequestSent(true);
+            }
         } catch (error) {
-        console.log("error message", error);
+            console.log("error message", error);
         }
     };
-    console.log("friend requests sent", friendRequests);
+
+    // console.log("friend requests sent", friendRequests);
     console.log("user friends", userFriends);
     return (
         <Pressable
@@ -131,8 +154,8 @@ const Friends = ({ item }: any) => {
         )}
         </Pressable>
     );
-};
+    };
 
-export default Friends;
+    export default User;
 
-const styles = StyleSheet.create({});
+    const styles = StyleSheet.create({});

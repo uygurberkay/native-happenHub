@@ -2,13 +2,14 @@ import { View, Text, TextInput, ScrollView, Pressable, Platform } from 'react-na
 import React, { useContext, useEffect, useLayoutEffect, useState } from 'react'
 import { StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { PostContext } from '../context/postContext';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import axios from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AuthContext } from '../context/authContext';
-import Friends from '../components/Messages/Friends';
+import Friends from '../components/Messages/Friend/Friends';
+import FriendScreen from '../components/Messages/Friend/FriendScreen';
+import NotificationScreen from '../components/Messages/Notification/NotificationScreen';
 
 const Message = ({navigation}:any) => {
     /* Global state */
@@ -19,28 +20,7 @@ const Message = ({navigation}:any) => {
     const [title,setTitle] = useState('')
     const [description,setDescription] = useState('')
     const [loading,setLoading] = useState(false)
-
-    /* Handle form data post  */
-    // const handlePost = async () =>{
-    //     try {
-    //         setLoading(true);
-    //         if (!title || !description) alert("Please fill all areas ");
-    //         const { data } = await axios.post(
-    //             '/post/create-post',
-    //             { title, description}
-    //         );
-    //         setLoading(false);
-    //         setPosts([...posts, data?.posts])
-    //         alert(data?.message)
-    //         navigation.navigate('Home')
-    //     } catch (error: any) {
-    //         alert(error?.response.data.message || error.message);
-    //         setLoading(false);
-    //         console.log(error);
-    //     }
-    // }
     
-    const [users, setUsers] = useState([]);
     useLayoutEffect(() => {
         navigation.setOptions({
             headerTitle: "",
@@ -61,31 +41,31 @@ const Message = ({navigation}:any) => {
         });
     }, []);
 
-    useEffect(() => {
-        const fetchUsers = async () => {
-            const userId = user._id;
-            console.log('User ID : ',userId)
-
-            const response = axios
-                .get(`/auth/users/${userId}`)
-                .then((response) => {
-                    setUsers(response.data);
-                })
-                .catch((error) => {
-                    console.log("error retrieving users", error);
-                });
-                console.log(response)
-                };
-            fetchUsers();
-        }, []);
-        console.log("users", users);
+    /* Handle form data post  */
+    // const handlePost = async () =>{
+    //     try {
+    //         setLoading(true);
+    //         if (!title || !description) alert("Please fill all areas ");
+    //         const { data } = await axios.post(
+    //             '/post/create-post',
+    //             { title, description}
+    //         );
+    //         setLoading(false);
+    //         setPosts([...posts, data?.posts])
+    //         alert(data?.message)
+    //         navigation.navigate('Home')
+    //     } catch (error: any) {
+    //         alert(error?.response.data.message || error.message);
+    //         setLoading(false);
+    //         console.log(error);
+    //     }
+    // }
         
     return (
         <View style={styles.container}>
             <View style={{ padding: 10 }}>
-                {users.map((item, index) => (
-                    <Friends key={index} item={item} />
-                ))}
+                {/* <FriendScreen/> */}
+                <NotificationScreen />
             </View>
         </View>
     )
@@ -98,36 +78,7 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         marginTop: 40,
     },
-    heading: {
-        fontSize: 25,
-        fontWeight: 'bold',
-        textTransform: 'uppercase',
-    },
-    inputBox: {
-        backgroundColor: '#ffffff',
-        textAlignVertical: 'top',
-        paddingTop: 10,
-        width: '90%',
-        marginTop: 30,
-        fontSize: 16,
-        paddingLeft: 15,
-        borderColor: 'gray',
-        borderWidth: 1,
-        borderRadius: 12,
-    },
-    postBtn: {
-        width:'85%',
-        marginTop: 30,
-        height: 40,
-        borderRadius: 8,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    postBtnText: {
-        color: '#ffffff',
-        fontSize: 16,
-        fontWeight: '400',
-    }
+    
 });
 
 export default Message

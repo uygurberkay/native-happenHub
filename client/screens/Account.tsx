@@ -28,7 +28,7 @@ const Account = () => {
             });
             setLoading(false)
             let UD = JSON.stringify(data);
-            console.log('UD --- >',UD)
+            // console.log('UD --- >',UD)
             setState({ ...state, user: UD?.updatedUser });
             alert(data && data.message);
         } catch (error: any) {

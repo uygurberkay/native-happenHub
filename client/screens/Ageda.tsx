@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import PostCard from '../components/PostCard'
 import axios from 'axios';
 
-const Calendar = () => {
+const Agenda = () => {
     /* Local state */
     const [posts, setPosts] : any = useState([]);
     const [loading, setLoading] : any = useState(false);
@@ -41,4 +41,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default Calendar
+export default Agenda

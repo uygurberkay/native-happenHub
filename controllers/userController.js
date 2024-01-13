@@ -172,10 +172,10 @@ export const getUsersExceptLoggedIn =  (req,res) => {
 /* FRIEND REQUESTS */
 
 export const friendRequests = async (req,res) => {
+    /* Gets currentUserId and selectedUserId  */
+    const { currentUserId, selectedUserId } = req.body;
+    
     try {
-        /* Gets currentUserId and selectedUserId  */
-        const { currentUserId, selectedUserId } = req.body;
-
         /* Update the recepient's friendRequestsArray */
         await userModel.findByIdAndUpdate(selectedUserId, {
             $push: { friendRequests: currentUserId },
@@ -185,13 +185,9 @@ export const friendRequests = async (req,res) => {
         await userModel.findByIdAndUpdate(currentUserId, {
             $push: { sentFriendRequests: selectedUserId },
         });
-        res.status(StatusCodes.OK).json({
-            success: true,
-            message: 'Friend requests found',
-        })
+        res.status(StatusCodes.OK)
 
     } catch (error) {
-        console.log(error)
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
             success: false,
             message: 'Friend requests does not found',
@@ -200,24 +196,20 @@ export const friendRequests = async (req,res) => {
     }
 }
 
-/* FRIEND REQUEST BY ID */
+/* GETS ALL FRIEND REQUEST FROM userID */
 
 export const friendRequestsById = async (req,res) => {
     try {
         const { userId } = req.params;
         
-            //fetch the user document based on the User id
-            const user = await userModel.findById(userId)
-            .populate("friendRequests", "name email image")
-            .lean();
+        //fetch the user document based on the User id
+        const user = await userModel.findById(userId)
+        .populate("friendRequests", "name email image")
+        .lean();
 
         const friendRequests = user.friendRequests;
 
-        res.status(StatusCodes.OK).json({
-            success: true,
-            message: 'Friend requests ByID found',
-            friendRequests
-        })
+        res.status(StatusCodes.OK).json(friendRequests)
 
     } catch (error) {
         console.log(error)
@@ -241,11 +233,7 @@ export const getFriendList = async (req,res) => {
         );
         const acceptedFriends = user.friends;
 
-        res.status(StatusCodes.OK).json({
-            success: true,
-            message: 'Friend list',
-            acceptedFriends
-        })
+        res.status(StatusCodes.OK).json(acceptedFriends)
 
     } catch (error) {
         console.log(error)
@@ -261,39 +249,30 @@ export const getFriendList = async (req,res) => {
 
 export const friendRequestAccept = async (req,res) => {
     try {
-        const { senderId, recipientId } = req.body;
+        const { senderId, recepientId } = req.body;
 
-        /* Sender and Receipent */
+        //retrieve the documents of sender and the recipient
         const sender = await userModel.findById(senderId);
-        const recepient = await userModel.findById(recipientId);
-
-        /* Push to array */
-        sender.friends.push(recipientId);
+        const recepient = await userModel.findById(recepientId);
+    
+        sender.friends.push(recepientId);
         recepient.friends.push(senderId);
-
+    
         recepient.friendRequests = recepient.friendRequests.filter(
-        (request) => request.toString() !== senderId.toString()
+            (request) => request.toString() !== senderId.toString()
         );
-
+    
         sender.sentFriendRequests = sender.sentFriendRequests.filter(
-        (request) => request.toString() !== recipientId.toString
+            (request) => request.toString() !== recepientId.toString
         );
-
+    
         await sender.save();
         await recepient.save();
-
-        res.status(StatusCodes.OK).json({
-            success: true,
-            message: 'Friend Request accepted successfully',
-        })
-
+    
+        res.status(200).json({ message: "Friend Request accepted successfully" });
     } catch (error) {
-        console.log(error)
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-            success: false,
-            message: 'Friend requests does not found',
-            error,
-        })
+        console.log(error);
+        res.status(500).json({ message: "Internal Server Error" });
     }
 }
 
@@ -306,11 +285,7 @@ export const getUserDetails = async (req,res) => {
         /* Recipient Info getting by userId */
         const recipientId = await userModel.findById(userId);
 
-        res.status(StatusCodes.OK).json({
-            success: true,
-            message: 'Friend list',
-            recipientId
-        })
+        res.status(StatusCodes.OK).json(recipientId)
 
     } catch (error) {
         console.log(error)
@@ -323,7 +298,7 @@ export const getUserDetails = async (req,res) => {
 }
 
 
-/* SENDS FRIEND REQUEST */
+/* GETS FRIEND REQUESTS */
 
 export const sendFriendRequest = async (req,res) => {
     try {
@@ -334,11 +309,7 @@ export const sendFriendRequest = async (req,res) => {
 
         const sentFriendRequests = user.sentFriendRequests;
 
-        res.status(StatusCodes.OK).json({
-            success: true,
-            message: 'Friend request send',
-            sentFriendRequests
-        })
+        res.status(StatusCodes.OK).json(sentFriendRequests)
 
     } catch (error) {
         console.log(error)
@@ -350,7 +321,7 @@ export const sendFriendRequest = async (req,res) => {
     }
 }
 
-/*  */
+/* GETS FRİEND LİSTS */
 
 export const showFriendList = async (req,res) => {
     try {
@@ -368,11 +339,7 @@ export const showFriendList = async (req,res) => {
                 /* Maps all the friends userId has */
                 const friendIds = user.friends.map((friend) => friend._id);
 
-                res.status(StatusCodes.OK).json({
-                    success: true,
-                    message: 'Friend request send',
-                    friendIds
-                })
+                res.status(StatusCodes.OK).json(friendIds)
             })
     } catch (error) {
         console.log(error)
