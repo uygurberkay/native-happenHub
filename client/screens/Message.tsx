@@ -10,36 +10,74 @@ import { AuthContext } from '../context/authContext';
 import Friends from '../components/Messages/Friend/Friends';
 import FriendScreen from '../components/Messages/Friend/FriendScreen';
 import NotificationScreen from '../components/Messages/Notification/NotificationScreen';
+import ChatScreen from '../components/Messages/Chat/ChatScreen';
+import Tabs from '../components/Ui/Tabs';
+// @ts-ignore
+import { Styles } from '../constants/Color';
 
 const Message = ({navigation}:any) => {
     /* Global state */
     const { t } = useTranslation();
     const [state, setState]: any = useContext(AuthContext);
     const { user, token } = state;
+
     /* Local state */
+    const tabs = ["Chat", "Friends", "Notifications"];
+    const [activeTab, setActiveTab] = useState(tabs[0]);
     const [title,setTitle] = useState('')
     const [description,setDescription] = useState('')
     const [loading,setLoading] = useState(false)
     
     useLayoutEffect(() => {
         navigation.setOptions({
-            headerTitle: "",
-            headerLeft: () => (
-            <Text style={{ fontSize: 16, fontWeight: "bold" }}>Swift Chat</Text>
-            ),
-            headerRight: () => (
-            <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
-                <Ionicons onPress={() => navigation.navigate("Chats")} name="chatbox-ellipses-outline" size={24} color="black" />
-                <MaterialIcons
-                onPress={() => navigation.navigate("Friends")}
-                name="people-outline"
-                size={24}
-                color="black"
-                />
-            </View>
-            ),
+            // headerTitle: "",
+            // headerLeft: () => (
+            // <Text style={{ fontSize: 16, fontWeight: "bold" }}>Swift Chat</Text>
+            // ),
+            // headerRight: () => (
+            // <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
+            //     <Ionicons onPress={() => navigation.navigate("Chats")} name="chatbox-ellipses-outline" size={24} color="black" />
+            //     <MaterialIcons
+            //     onPress={() => navigation.navigate("Friends")}
+            //     name="people-outline"
+            //     size={24}
+            //     color="black"
+            //     />
+            // </View>
+            // ),
         });
     }, []);
+
+    const displayTabContent = () => {
+        switch (activeTab) {
+            case "Chat":
+                return (
+                    <View>
+                        <ChatScreen />
+                    </View>
+                );
+        
+            case "Friends":
+                return (
+                    
+                    <View>
+                        <FriendScreen/>
+                    </View>
+                );
+        
+            case "Notifications":
+                return (
+                    
+                    <View>
+                        <NotificationScreen />
+                    </View>
+                );
+        
+            default:
+                return null;
+            }
+    }
+
 
     /* Handle form data post  */
     // const handlePost = async () =>{
@@ -63,9 +101,17 @@ const Message = ({navigation}:any) => {
         
     return (
         <View style={styles.container}>
-            <View style={{ padding: 10 }}>
-                {/* <FriendScreen/> */}
-                <NotificationScreen />
+            <View>
+                <View style={styles.tabContainer}>
+                    <Tabs 
+                        tabs={tabs}
+                        activeTab={activeTab}
+                        setActiveTab={setActiveTab}
+                    />
+                </View>
+                <View>
+                    {displayTabContent()}
+                </View>
             </View>
         </View>
     )
@@ -74,11 +120,27 @@ const Message = ({navigation}:any) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        margin: 10,
         justifyContent: "space-between",
-        marginTop: 40,
+        backgroundColor: Styles.colors.lightCoral,
+        paddingRight: 24,
     },
-    
+    tabContainer: {
+        width: '100%',
+        margin: 12,
+        paddingHorizontal: 12 , 
+        backgroundColor: Styles.colors.white,
+        borderRadius: 10,
+        borderColor: Styles.colors.darkCharcoal,
+        borderWidth: .2
+    },
+    updateBtn: {
+        height: 40,
+        width: 250,
+        borderRadius: 10,
+        marginTop: 30,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
 });
 
 export default Message

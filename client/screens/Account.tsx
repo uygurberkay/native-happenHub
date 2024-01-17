@@ -28,7 +28,6 @@ const Account = () => {
             });
             setLoading(false)
             let UD = JSON.stringify(data);
-            // console.log('UD --- >',UD)
             setState({ ...state, user: UD?.updatedUser });
             alert(data && data.message);
         } catch (error: any) {
@@ -88,11 +87,6 @@ const Account = () => {
                         styles.updateBtn,
                         ]}
                 >
-                    {/* {({pressed}) => (
-                        <Text style={styles.updateBtnText}>
-                            {pressed ? t('Updated!') : t('Update Profile')}
-                        </Text>
-                    )} */}
                     <Text style={styles.updateBtnText}>
                         {loading ? t('Updated') : t('Update Profile')}
                     </Text>

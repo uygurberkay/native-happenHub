@@ -20,7 +20,7 @@ export const sendMessage =  async (req, res) => {
     
         await newMessage.save();
 
-        res.status(StatusCodes.CREATED).json({
+        res.status(StatusCodes.OK).json({
             success: true,
             message: 'Message sent Successfully'
         })
@@ -37,20 +37,16 @@ export const sendMessage =  async (req, res) => {
 
 export const messagesBetweenUsers =  async (req, res) => {
     try {
-        const { senderId, recepientId } = req.params;
+        const { senderId, recipientId } = req.params;
 
         const messages = await messageModel.find({
         $or: [
-            { senderId: senderId, recepientId: recepientId },
-            { senderId: recepientId, recepientId: senderId },
+            { senderId: senderId, recipientId: recipientId },
+            { senderId: recipientId, recipientId: senderId },
         ],
         }).populate("senderId", "_id name");
 
-        res.status(StatusCodes.CREATED).json({
-            success: true,
-            message: 'Message found',
-            messages
-        })
+        res.status(StatusCodes.OK).json(messages);
     } catch (error) {
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
             success:false,
@@ -73,7 +69,7 @@ export const deleteMessage =  async (req, res) => {
         }
 
         await messageModel.deleteMany({ _id: { $in: messages } });
-        res.status(StatusCodes.CREATED).json({
+        res.status(StatusCodes.OK).json({
             success: true,
             message: 'Message deleted successfully',
         })

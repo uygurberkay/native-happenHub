@@ -221,28 +221,25 @@ export const friendRequestsById = async (req,res) => {
     }
 }
 
-/* FRIEND LISTS */
+/* GETS ACCEPTED FRIEND LISTS */
 
 export const getFriendList = async (req,res) => {
     try {
         const { userId } = req.params;
-
-        const user = await userModel.findById(userId).populate(
-            "friends",
-            "name email image"
-        );
+        const user = await userModel.findById(userId)
+            .populate(
+                "friends",
+                "name email image"
+            );
+        console.log(user)
         const acceptedFriends = user.friends;
-
-        res.status(StatusCodes.OK).json(acceptedFriends)
-
+        res.json(acceptedFriends);
     } catch (error) {
-        console.log(error)
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-            success: false,
-            message: 'Friend requests does not found',
-            error,
-        })
+        console.error(error);
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR)
+        .json({ error: "Internal Server Error" });
     }
+
 }
 
 /* FRIEND REQUEST ACCEPT */

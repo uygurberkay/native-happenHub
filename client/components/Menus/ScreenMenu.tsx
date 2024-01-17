@@ -24,6 +24,30 @@ import { Styles } from '../../constants/Color';
 import CreateTask from '../../screens/CreateTask';
 import { View } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import PersonalChat from '../Messages/PersonalChat/PersonalChat';
+
+const MessagePage = () => {
+    const Stack = createNativeStackNavigator()
+    const { t } = useTranslation()
+    return (
+        <>
+                <Stack.Navigator initialRouteName={'Message'}
+                screenOptions={{
+                    headerStyle: { backgroundColor: Styles.colors.lightCoral},
+                    headerLargeStyle: {backgroundColor: Styles.colors.lightCoral}
+                }}>
+                    <>
+                        <Stack.Screen 
+                            name="Message" 
+                            component={Message} 
+                            options={{
+                                headerShown: true
+                            }}/>
+                    </>
+                </Stack.Navigator>
+            </>
+    )
+}
 
 const BottomNavigation = () => {
     const BottomTab = createBottomTabNavigator();
@@ -58,7 +82,7 @@ const BottomNavigation = () => {
                 }}
             />
             <BottomTab.Screen 
-                name="Message" 
+                name="MessagePage" 
                 component={Message} 
                 options={{
                     tabBarLabel: `${t('Message')}`,
@@ -131,6 +155,11 @@ const ScreenMenu = () => {
                     component={BottomNavigation}
                     options={{
                         headerShown: false,
+                    }}/>
+                    <Stack.Screen 
+                        name="PersonalChat" 
+                        component={PersonalChat} 
+                        options={{
                     }}/>
                 </>
                 ): (

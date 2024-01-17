@@ -34,7 +34,7 @@ router.get('/friend-requests/sent/:userId',authMiddleware ,  sendFriendRequest);
 
 router.post('/friend-request/accept', authMiddleware, friendRequestAccept);
 
-router.get('/accepted-friends/:userId"', authMiddleware, getFriendList);
+router.get('/accepted-friends/:userId',authMiddleware , getFriendList);
 
 router.get('/friends/:userId', authMiddleware, showFriendList);
 
