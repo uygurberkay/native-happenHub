@@ -39,9 +39,14 @@ export const registerController = async (req,res) => {
         // Hashed Password
         const hashedPassword = await hashPassword(password)
 
+        const capitalized = name
+            .split(' ')
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(' ');
+
         /* Save user */
         const user = await userModel({
-            name, 
+            name: capitalized, 
             email, 
             password: hashedPassword,
         }).save()
@@ -246,13 +251,13 @@ export const getFriendList = async (req,res) => {
 
 export const friendRequestAccept = async (req,res) => {
     try {
-        const { senderId, recepientId } = req.body;
+        const { senderId, recipientId } = req.body;
 
         //retrieve the documents of sender and the recipient
         const sender = await userModel.findById(senderId);
-        const recepient = await userModel.findById(recepientId);
+        const recepient = await userModel.findById(recipientId);
     
-        sender.friends.push(recepientId);
+        sender.friends.push(recipientId);
         recepient.friends.push(senderId);
     
         recepient.friendRequests = recepient.friendRequests.filter(
@@ -260,7 +265,7 @@ export const friendRequestAccept = async (req,res) => {
         );
     
         sender.sentFriendRequests = sender.sentFriendRequests.filter(
-            (request) => request.toString() !== recepientId.toString
+            (request) => request.toString() !== recipientId.toString
         );
     
         await sender.save();

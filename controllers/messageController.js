@@ -1,5 +1,21 @@
 import { StatusCodes } from "http-status-codes";
 import messageModel from '../models/messageModel.js'
+import multer from 'multer'
+import { upload } from "../middleware/multerMiddleware.js";
+
+// // Configure multer for handling file uploads
+// const storage = multer.diskStorage({
+//     destination: function (req, file, cb) {
+//         cb(null, "files/"); // Specify the desired destination folder
+//     },
+//     filename: function (req, file, cb) {
+//         // Generate a unique filename for the uploaded file
+//         const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+//         cb(null, uniqueSuffix + "-" + file.originalname);
+//     },
+// });
+
+// const upload = multer({ storage: storage });
 
 /* Controllers */
 
@@ -8,6 +24,8 @@ import messageModel from '../models/messageModel.js'
 export const sendMessage =  async (req, res) => {
     try {
         const { senderId, recipientId, messageType, messageText } = req.body;
+
+        console.log(senderId, ' and ' , recipientId, ' and ' , messageType, ' and ' ,messageText)
     
         const newMessage = new messageModel({
             senderId,
@@ -33,12 +51,17 @@ export const sendMessage =  async (req, res) => {
     }
 };
 
+export const sendMultipleTypeMessages = () => {
+    upload.single("imageFile");
+    sendMessage();
+}
+
 /* MESSAGES BETWEEN USERS */
 
 export const messagesBetweenUsers =  async (req, res) => {
     try {
         const { senderId, recipientId } = req.params;
-
+        console.log(senderId, ' and ', recipientId)
         const messages = await messageModel.find({
         $or: [
             { senderId: senderId, recipientId: recipientId },

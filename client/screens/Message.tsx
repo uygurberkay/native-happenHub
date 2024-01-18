@@ -1,19 +1,15 @@
-import { View, Text, TextInput, ScrollView, Pressable, Platform } from 'react-native'
+import { View } from 'react-native'
 import React, { useContext, useEffect, useLayoutEffect, useState } from 'react'
 import { StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { MaterialIcons } from '@expo/vector-icons';
-import { Ionicons } from '@expo/vector-icons';
-import axios from "axios";
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AuthContext } from '../context/authContext';
-import Friends from '../components/Messages/Friend/Friends';
 import FriendScreen from '../components/Messages/Friend/FriendScreen';
 import NotificationScreen from '../components/Messages/Notification/NotificationScreen';
 import ChatScreen from '../components/Messages/Chat/ChatScreen';
 import Tabs from '../components/Ui/Tabs';
 // @ts-ignore
 import { Styles } from '../constants/Color';
+import IconButton from '../components/Ui/IconButton';
 
 const Message = ({navigation}:any) => {
     /* Global state */
@@ -30,21 +26,14 @@ const Message = ({navigation}:any) => {
     
     useLayoutEffect(() => {
         navigation.setOptions({
-            // headerTitle: "",
-            // headerLeft: () => (
-            // <Text style={{ fontSize: 16, fontWeight: "bold" }}>Swift Chat</Text>
-            // ),
-            // headerRight: () => (
-            // <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
-            //     <Ionicons onPress={() => navigation.navigate("Chats")} name="chatbox-ellipses-outline" size={24} color="black" />
-            //     <MaterialIcons
-            //     onPress={() => navigation.navigate("Friends")}
-            //     name="people-outline"
-            //     size={24}
-            //     color="black"
-            //     />
-            // </View>
-            // ),
+            headerTitle: `${t('Message')}`,
+            headerRight: () => (
+                    <IconButton 
+                        image={user.image}
+                        color={Styles.colors.lightCharcoal}
+                        onPress={() => {navigation.navigate('Profile')}}
+                    />
+                ),
         });
     }, []);
 
@@ -102,12 +91,14 @@ const Message = ({navigation}:any) => {
     return (
         <View style={styles.container}>
             <View>
-                <View style={styles.tabContainer}>
-                    <Tabs 
-                        tabs={tabs}
-                        activeTab={activeTab}
-                        setActiveTab={setActiveTab}
-                    />
+                <View style={{backgroundColor: Styles.colors.lightCoral}}>
+                    <View style={styles.tabContainer}>
+                        <Tabs 
+                            tabs={tabs}
+                            activeTab={activeTab}
+                            setActiveTab={setActiveTab}
+                        />
+                    </View>
                 </View>
                 <View>
                     {displayTabContent()}
@@ -121,17 +112,12 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: "space-between",
-        backgroundColor: Styles.colors.lightCoral,
-        paddingRight: 24,
+        backgroundColor: Styles.colors.sunray,
+        // paddingRight: 24,
     },
     tabContainer: {
         width: '100%',
-        margin: 12,
-        paddingHorizontal: 12 , 
-        backgroundColor: Styles.colors.white,
-        borderRadius: 10,
-        borderColor: Styles.colors.darkCharcoal,
-        borderWidth: .2
+
     },
     updateBtn: {
         height: 40,

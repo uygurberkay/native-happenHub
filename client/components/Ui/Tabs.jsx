@@ -5,50 +5,49 @@ import { Styles } from "../../constants/Color";
 
 const TabButton = ({name, activeTab, onHandleSearchType}) => {
     return (
-
-        <Pressable 
-        onPress={onHandleSearchType}
-        style={({pressed}) => pressed && styles.btn(name, activeTab)}>
-            <View style={styles.buttonContainer}>
-                <Text style={styles.btnText(name, activeTab)}>{name}</Text>
-            </View>
-            </Pressable>
-
-            
-        // <TouchableOpacity
-        //     style={styles.btn(name, activeTab)}
-        //     onPress={onHandleSearchType}
-        // >
-        // <Text style={styles.btnText(name, activeTab)}>{name}</Text>
-        // </TouchableOpacity>
+            <Pressable 
+            onPress={onHandleSearchType}
+            style={({pressed}) => pressed && styles.btn(name, activeTab)}>
+                <View style={styles.buttonContainer}>
+                    <Text style={styles.btnText(name, activeTab)}>{name}</Text>
+                </View>
+                </Pressable>
     );
 }
 
 const Tabs = ({ tabs, activeTab, setActiveTab }) => {
     return (
-        <View style={styles.container}>
-        <FlatList
-            data={tabs}
-            renderItem={({item}) => (
-            <TabButton 
-                name={item}
-                activeTab={activeTab}
-                onHandleSearchType={() => setActiveTab(item)}
+        <View style={{backgroundColor: Styles.colors.lightCoral, marginHorizontal: 12}}>
+            <View style={styles.container}>
+            <FlatList
+                data={tabs}
+                renderItem={({item}) => (
+                <TabButton 
+                    name={item}
+                    activeTab={activeTab}
+                    onHandleSearchType={() => setActiveTab(item)}
+                />
+                )}
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                keyExtractor={item => item}
+                contentContainerStyle={{ columnGap: 6 }}
+                scrollEnabled={false}
             />
-            )}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            keyExtractor={item => item}
-            contentContainerStyle={{ columnGap: 6 }}
-            scrollEnabled={false}
-        />
-    </View>
+        </View>
+
+        </View>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
-        margin: 6,
+        marginVertical: 10,
+        alignItems: "center",
+        backgroundColor: Styles.colors.white,
+        borderRadius: 10,
+        borderColor: Styles.colors.darkCharcoal,
+        borderWidth: .2,
     },
     buttonContainer: {
         padding: 6,
@@ -56,8 +55,6 @@ const styles = StyleSheet.create({
         marginVertical: 4,
     },
     btn : ({ name, activeTab }) => ({
-        // paddingVertical: 16,
-        // paddingHorizontal: 24,
         backgroundColor: name === activeTab ? Styles.colors.bluePrimary :  Styles.colors.lightCoral,
         color: name ===  activeTab ? Styles.colors.darkCharcoal : Styles.colors.lightCoral,
         borderRadius: 8,
@@ -68,7 +65,7 @@ const styles = StyleSheet.create({
         elevation: 5, // Android
     }),
     btnText: ({ name, activeTab }) => ({
-        fontSize: 18,
+        fontSize: 16,
         color: name === activeTab ?  Styles.colors.darkCharcoal : "#AAA9B8",
     }),
 })

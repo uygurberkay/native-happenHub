@@ -10,7 +10,8 @@
     "Login" : "Login",
     "Not registered yet" : "Not registered yet",
     "Logout Successful" : "Logout Successful",
-    "Updated" : "Updated",
+    "Edited" : "Edited",
+    "Edit" : "Edit",
     "My Profile": "My Profile",
     "Notification": "Notification",
     "Create": "Create",
@@ -19,5 +20,7 @@
     "Language": "Language",
     "Add post descrition": "Add post descrition",
     "Add post title": "Add post title",
-    "Want to create an event that can watch what you are doing?" : "Want to create an event that can watch what you are doing?"
+    "Want to create an event that can watch what you are doing?" : "Want to create an event that can watch what you are doing?",
+    "Phone Number": "Phone Number",
+    "Last Update": "Last Update"
 }

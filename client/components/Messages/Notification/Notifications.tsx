@@ -31,7 +31,7 @@ const acceptRequest = async (friendRequestId: String) => {
             "/auth/friend-request/accept",  
             {
                 senderId: friendRequestId,
-                recepientId: userId,
+                recipientId: userId,
             }
         );
 

@@ -33,7 +33,11 @@ const LanguageSelector: React.FC<LanguageTypes<Languages>> = () => {
 
     return (
         <>
-            <Modal visible={visible} onRequestClose={() => setVisible(false)}>
+            <Modal 
+                animationType='slide'
+                transparent={true}
+                visible={visible} 
+                onRequestClose={() => setVisible(false)}>
                 <View style={styles.languageList}>
                     <FlatList data={Object.keys(languageResources)} renderItem={({item}) => (
                         <Pressable 
@@ -56,7 +60,7 @@ const LanguageSelector: React.FC<LanguageTypes<Languages>> = () => {
 
 const styles = StyleSheet.create({
     languageList: {
-        flex: 1,
+        // flex: 1,
         justifyContent: 'center',
         padding: 10,
         backgroundColor: '#6258e8',

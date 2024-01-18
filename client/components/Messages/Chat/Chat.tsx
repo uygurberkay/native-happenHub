@@ -81,7 +81,6 @@ const Chat = ({ item }: any) => {
 
         <View style={{ flex: 1 }}>
             <Text style={{ fontSize: 15, fontWeight: "500" }}>{item?.name}</Text>
-            <Text>{item._id}</Text>
             {lastMessage && (
             <Text style={{ marginTop: 3, color: "gray", fontWeight: "500" }}>
                 {lastMessage?.message}

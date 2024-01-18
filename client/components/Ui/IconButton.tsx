@@ -6,7 +6,7 @@ import { Styles } from '../../constants/Color';
 
 interface IconButtonProps {
     color: string | undefined;
-    image: any;
+    image: String | any;
     onPress : any;
 }
 
@@ -37,11 +37,10 @@ const styles = StyleSheet.create({
         height: 32,
         borderRadius: 24,
         borderColor: Styles.colors.darkCharcoal,
-        borderWidth: 2,
+        borderWidth: .5,
     },
     pressed: {
         opacity: .75,
-        // backgroundColor: Styles.colors.lightCoral,
         borderRadius: 100,
     },
 })

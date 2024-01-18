@@ -63,13 +63,6 @@ const BottomNavigation = () => {
                 tabBarLabelPosition: 'below-icon',
                 tabBarStyle: {flex: .1, position: 'absolute', height: 60,},
                 tabBarLabelStyle: {fontSize: 10, paddingBottom: 8},
-                headerRight: ({tintColor}) => (
-                    <IconButton 
-                        image={undefined}
-                        color={tintColor}
-                        onPress={() => {navigation.navigate('Profile')}}
-                    />
-                ),
             })}
         >
             <BottomTab.Screen 
@@ -78,6 +71,7 @@ const BottomNavigation = () => {
                 options={{
                     tabBarLabel: `${t('Agenda')}`,
                     headerTitle: `${t('Agenda')}`, // Will be change later, I think
+                    headerStyle : { backgroundColor : Styles.colors.lightCoral},
                     tabBarIcon: ({color}) => <AntDesign name="calendar" size={20} color={color} />
                 }}
             />
@@ -86,7 +80,8 @@ const BottomNavigation = () => {
                 component={Message} 
                 options={{
                     tabBarLabel: `${t('Message')}`,
-                    headerTitle: `${t('Message')}`,
+                    // headerTitle: `${t('Message')}`,
+                    headerStyle : { backgroundColor : Styles.colors.lightCoral},
                     tabBarIcon: ({color}) => <Feather name="message-square" size={20} color={color} />
                 }}
             />
@@ -97,6 +92,7 @@ const BottomNavigation = () => {
                     tabBarLabelStyle: {display: 'none', },
                     headerTitle: `${t('Create')}`,
                     tabBarIconStyle: {backgroundColor: 'purple'},
+                    headerStyle : { backgroundColor : Styles.colors.lightCoral},
                     tabBarIcon: ({color}) => (
                         <View style={{ 
                             borderRadius: 8, 
@@ -121,6 +117,7 @@ const BottomNavigation = () => {
                 options={{
                     headerTitle: `${t('Notification')}`,
                     tabBarLabel: `${t('Notification')}`,
+                    headerStyle : { backgroundColor : Styles.colors.lightCoral},
                     tabBarIcon: ({color}) => <Ionicons name="notifications-outline" size={20} color={color} />
                 }}
             />
@@ -130,6 +127,7 @@ const BottomNavigation = () => {
                 options={{
                     tabBarLabel: `${t('My Profile')}`,
                     headerTitle: `${t('My Profile')}`,
+                    headerStyle : { backgroundColor : Styles.colors.lightCoral,},
                     tabBarIcon: ({color}) => <AntDesign name="user" size={20} color={color} />
                 }}
             />

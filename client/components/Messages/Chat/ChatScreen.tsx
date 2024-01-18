@@ -31,15 +31,17 @@ const ChatScreen = ({navigation}: any) => {
     // console.log("Accepted Friends --> ",acceptedFriends)
     return (
         <ScrollView showsVerticalScrollIndicator={false}>
-        <Pressable>
-            {acceptedFriends.map((item,index) => (
-                <Chat key={index} item={item} navigation={navigation}/>
-            ))}
-        </Pressable>
+            <Pressable>
+                {acceptedFriends.map((item,index) => (
+                    <Chat key={index} item={item} navigation={navigation}/>
+                ))}
+            </Pressable>
         </ScrollView>
     );
 };
 
 export default ChatScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+    
+});

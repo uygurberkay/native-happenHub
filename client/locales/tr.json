@@ -10,7 +10,8 @@
     "Login" : "Giriş yap",
     "Not registered yet" : "Üye değil misin",
     "Logout Successful" : "Çıkış başarılı",
-    "Updated" : "Güncellendi",
+    "Edited" : "Güncellendi",
+    "Edit" : "Güncelle",
     "My Profile": "Profilim",
     "Notification": "Bildirimler",
     "Create": "Oluştur",
@@ -19,6 +20,7 @@
     "Language": "Dil Seçimi",
     "Add post descrition": "Açıklama ekle",
     "Add post title": "Başlık ekle",
-    "Want to create an event that can watch what you are doing?" : "Ne planladığını izleyebileceğin bir etkinlik oluşturmak ister misin?"
-
+    "Want to create an event that can watch what you are doing?" : "Ne planladığını izleyebileceğin bir etkinlik oluşturmak ister misin?",
+    "Phone Number": "Telefon Numarası",
+    "Last Update": "Son Güncelleme"
 }
