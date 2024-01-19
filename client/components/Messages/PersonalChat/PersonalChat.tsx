@@ -21,18 +21,22 @@ import MessageContainer from "./MessageContainer";
 import { formatTime } from "../../../utils/formatTime";
 
 const ChatMessagesScreen = () => {
+  /* Authentication */
   const [state, setState]: any = useContext(AuthContext);
   const { user, token } = state;
   const userId = user._id;
+
+  /* Local States */
   const [selectedMessages, setSelectedMessages] = useState<any[]>([]);
   const [messages, setMessages] = useState([]);
   const [recepientData, setRecepientData] = useState();
-  const navigation = useNavigation();
   const [selectedImage, setSelectedImage] = useState("");
+  const [message, setMessage] = useState("");
+  
+  /* React-base Variables */
+  const navigation = useNavigation();
   const route = useRoute();
   const { recipientId } : any = route.params;
-  const [message, setMessage] = useState("");
-
   const scrollViewRef = useRef<any>(null);
   
   /* ScrollToBottom Functionality */
