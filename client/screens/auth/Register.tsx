@@ -49,7 +49,7 @@ const Register = ({navigation} : any) => {
       );
       alert(data && data.message)
       navigation.navigate('Login')
-      console.log('Register data : ', {name, email,password})
+      // console.log('Register data : ', {name, email,password})
     } catch (error: any) {
       alert(error?.response.data.message)
       setLoading(false)

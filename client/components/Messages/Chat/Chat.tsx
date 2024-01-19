@@ -27,8 +27,7 @@ const Chat = ({ item }: any) => {
                     `/message/messages/${userId}/${item._id}`
                 );
                 const data = response.data;
-                    // console.log('DATA ---> ',data)
-                    console.log('RESPONSE --> ', response)
+
                 if (response.status === 200) {
                     setMessages(data);
                 } else {
@@ -40,7 +39,6 @@ const Chat = ({ item }: any) => {
         };
         fetchMessages();
     }, []);
-    console.log('MESSAGE --->', messages);
 
     const getLastMessage = () => {
         const userMessages = messages.filter(
@@ -52,7 +50,7 @@ const Chat = ({ item }: any) => {
         return userMessages[n - 1];
     };
     const lastMessage = getLastMessage();
-    console.log(lastMessage);
+    // console.log(lastMessage);
     const formatTime = (time : any) => {
         const options : any = { hour: "numeric", minute: "numeric" };
         return new Date(time).toLocaleString("tr-TR", options);

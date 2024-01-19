@@ -3,6 +3,8 @@ import React, { useContext } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { AuthContext } from "../../../context/authContext";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
+import { Styles } from "../../../constants/Color.android";
 
 interface ItemProps {
     _id: String;
@@ -13,8 +15,6 @@ interface ItemProps {
 
 interface NotificationProps {
     item?: ItemProps | null | undefined;
-    // friendRequests: () => void;
-    // setFriendRequests: () => void;
     friendRequests: any;
     setFriendRequests: any;
 }
@@ -24,6 +24,7 @@ const [state, setState]: any = useContext(AuthContext);
 const { user, token } = state;
 const navigation = useNavigation();
 const userId = user;
+const { t } = useTranslation()
 
 const acceptRequest = async (friendRequestId: String) => {
     try {
@@ -45,35 +46,54 @@ const acceptRequest = async (friendRequestId: String) => {
 
 };
 return (
-    <Pressable
-    style={{
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "space-between",
-        marginVertical: 10,
-    }}
-    >
-    <Image
-        style={{ width: 50, height: 50, borderRadius: 25 }}
-        source={{ uri: item?.image }}
-    />
+    <Pressable style={styles.pressableContainer}>
+        <Image
+            style={styles.imageContainer}
+            source={{ uri: item?.image }}
+        />
+        <Text
+            style={styles.text}
+        >
+            {item?.name} {t('sent you a friend request')}!
+        </Text>
 
-    <Text
-        style={{ fontSize: 15, fontWeight: "bold", marginLeft: 10, flex: 1 }}
-    >
-        {item?.name} sent you a friend request!!
-    </Text>
-
-    <Pressable
-        onPress={() => acceptRequest(item._id)}
-        style={{ backgroundColor: "#0066b2", padding: 10, borderRadius: 6 }}
-    >
-        <Text style={{ textAlign: "center", color: "white" }}>Accept</Text>
-    </Pressable>
+        <Pressable
+            onPress={() => acceptRequest(item!._id)}
+            style={styles.pressableInnerContainer}
+        >
+            <Text style={styles.innerText}>{t('Accept')}</Text>
+        </Pressable>
     </Pressable>
 );
 };
 
 export default Notifications;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+    pressableContainer: {
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
+        marginVertical: 10,
+    },
+    imageContainer: { 
+        width: 50, 
+        height: 50, 
+        borderRadius: 25 
+    },
+    text: { 
+        fontSize: 15, 
+        fontWeight: "bold", 
+        marginLeft: 10, 
+        flex: 1 
+    },
+    pressableInnerContainer: { 
+        backgroundColor: Styles.colors.bluePrimary, 
+        padding: 10, 
+        borderRadius: 6 
+    },
+    innerText: { 
+        textAlign: "center",
+        color: "white" 
+    },
+});

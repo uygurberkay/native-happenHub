@@ -23,7 +23,7 @@ const Message = ({navigation}:any) => {
     const [title,setTitle] = useState('')
     const [description,setDescription] = useState('')
     const [loading,setLoading] = useState(false)
-    
+    console.log('ACTIVE TAB --> ', activeTab)
     useLayoutEffect(() => {
         navigation.setOptions({
             headerTitle: `${t('Message')}`,
@@ -48,7 +48,6 @@ const Message = ({navigation}:any) => {
         
             case "Friends":
                 return (
-                    
                     <View>
                         <FriendScreen/>
                     </View>
@@ -56,7 +55,6 @@ const Message = ({navigation}:any) => {
         
             case "Notifications":
                 return (
-                    
                     <View>
                         <NotificationScreen />
                     </View>

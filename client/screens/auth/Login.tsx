@@ -46,7 +46,7 @@ const Login = ({navigation} : any) => {
         await AsyncStorage.setItem('@auth', JSON.stringify(data));
         alert(data && data.message)
         navigation.navigate('Home')
-        console.log('Login data : ', {email,password})
+        // console.log('Login data : ', {email,password})
         } catch (error: any) {
             alert(error?.response.data.message)
             setLoading(false)

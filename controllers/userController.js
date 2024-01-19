@@ -193,16 +193,39 @@ export const friendRequests = async (req,res) => {
     const { currentUserId, selectedUserId } = req.body;
     
     try {
-        /* Update the recepient's friendRequestsArray */
+        // Check if selectedUserId is not already in the friendRequests array
+        const recipientUser = await userModel.findById(selectedUserId);
+
+        if (recipientUser.friendRequests.includes(currentUserId)) {
+            return res.status(StatusCodes.OK).json({
+                success: true,
+                message: 'Friend request already sent to this user.',
+            });
+        }
+
+        /* Update the recipient's friendRequestsArray */
         await userModel.findByIdAndUpdate(selectedUserId, {
             $push: { friendRequests: currentUserId },
         });
+
+
+        // Check if currentUserId is not already in the sentFriendRequests array
+        const senderUser = await userModel.findById(currentUserId);
+        if (senderUser.sentFriendRequests.includes(selectedUserId)) {
+            return res.status(StatusCodes.OK).json({
+                success: true,
+                message: 'Friend request already sent by this user.',
+            });
+        }
 
         /* Update the sender's sentFriendRequests array */
         await userModel.findByIdAndUpdate(currentUserId, {
             $push: { sentFriendRequests: selectedUserId },
         });
-        res.status(StatusCodes.OK)
+        res.status(StatusCodes.OK).json({
+            success: true,
+            message: 'Friend request sent successfully.',
+        });
 
     } catch (error) {
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
@@ -224,9 +247,12 @@ export const friendRequestsById = async (req,res) => {
         .populate("friendRequests", "name email image")
         .lean();
 
-        const friendRequests = user.friendRequests;
+        // const friendRequests = user.friendRequests;
 
-        res.status(StatusCodes.OK).json(friendRequests)
+        // Remove duplicates from the friendRequests array using Set
+        const uniqueFriendRequests = Array.from(new Set(user.friendRequests));
+
+        res.status(StatusCodes.OK).json(uniqueFriendRequests)
 
     } catch (error) {
         console.log(error)
@@ -267,21 +293,31 @@ export const friendRequestAccept = async (req,res) => {
 
         //retrieve the documents of sender and the recipient
         const sender = await userModel.findById(senderId);
-        const recepient = await userModel.findById(recipientId);
+        const recipient = await userModel.findById(recipientId);
     
-        sender.friends.push(recipientId);
-        recepient.friends.push(senderId);
-    
-        recepient.friendRequests = recepient.friendRequests.filter(
+        // Check if recipientId is not already in sender's friends array
+        if (!sender.friends.includes(recipientId) && (!recipient.friends.includes(senderId))) {
+            sender.friends.push(recipientId);
+        }
+
+        // Check if senderId is not already in recipient's friends array
+        if (!recipient.friends.includes(senderId) && (!sender.friends.includes(recipientId))) {
+            recipient.friends.push(senderId);
+        }
+
+        // Remove recipientId from recipient's friendRequests array
+        recipient.friendRequests = recipient.friendRequests.filter(
             (request) => request.toString() !== senderId.toString()
         );
-    
+
+        // Remove senderId from sender's sentFriendRequests array
         sender.sentFriendRequests = sender.sentFriendRequests.filter(
-            (request) => request.toString() !== recipientId.toString
+            (request) => request.toString() !== recipientId.toString()
         );
+
     
         await sender.save();
-        await recepient.save();
+        await recipient.save();
     
         res.status(200).json({ message: "Friend Request accepted successfully" });
     } catch (error) {

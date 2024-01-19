@@ -22,5 +22,12 @@
     "Add post title": "Başlık ekle",
     "Want to create an event that can watch what you are doing?" : "Ne planladığını izleyebileceğin bir etkinlik oluşturmak ister misin?",
     "Phone Number": "Telefon Numarası",
-    "Last Update": "Son Güncelleme"
+    "Last Update": "Son Güncelleme",
+    "sent you a friend request": "size arkadaşlık isteği yolladı",
+    "Accept" : "Kabul et",
+    "Your Friend Requests": "Arkadaşlık istekleri",
+    "There is no friend request": "Arkadaşlık isteği bulunamadı",
+    "Chat": "Sohbet",
+    "Friends": "Arkadaşlar",
+    "Notifications": "Bildirimler"
 }

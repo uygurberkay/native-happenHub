@@ -35,8 +35,8 @@ const userSchema = new mongoose.Schema({
     },
     role: {
         type : String,
-        enum: ['User','ProUser','Admin'],
-        default: 'User',
+        enum: ['user','proUser','admin'],
+        default: 'user',
     },
     friendRequests: [
         {

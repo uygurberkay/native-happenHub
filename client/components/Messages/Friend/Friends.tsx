@@ -20,13 +20,17 @@
     }
 
     const User = ({ item }: UserProps) => {
+    /* Authentication */
     const [state, setState]: any = useContext(AuthContext);
     const { user, token } = state;
+    const userId = user._id;
+
+    /* Local States */
     const [requestSent, setRequestSent] = useState(false);
     const [friendRequests, setFriendRequests] = useState([]);
     const [userFriends, setUserFriends] = useState([]);
-    const userId = user._id;
-        console.log(userId)
+
+    /* Fetches friend requests */
     useEffect(() => {
         const fetchFriendRequests = async () => {
             try {
@@ -41,7 +45,7 @@
                 } else {
                     console.log("error", response.status);
                 }
-                console.log('Data --> ', data);
+                // console.log('Data --> ', data);
             } catch (error) {
                 console.log("error", error);
             }
@@ -50,6 +54,7 @@
         fetchFriendRequests();
     }, []);
 
+    /* Fetches friends */
     useEffect(() => {
         const fetchUserFriends = async () => {
             try {
@@ -71,8 +76,9 @@
         fetchUserFriends();
     }, []);
 
+    /* Sends Friend Request */
     const sendFriendRequest = async (currentUserId: any, selectedUserId: any) => {
-        console.log(currentUserId, ' and ', selectedUserId);
+        // console.log(currentUserId, ' and ', selectedUserId);
     
         try {
             const response = await axios.post(
@@ -92,7 +98,7 @@
     };
 
     // console.log("friend requests sent", friendRequests);
-    console.log("user friends", userFriends);
+    // console.log("user friends", userFriends);
     return (
         <Pressable
         style={{ flexDirection: "row", alignItems: "center", marginVertical: 10 }}
