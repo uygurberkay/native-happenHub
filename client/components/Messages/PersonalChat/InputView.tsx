@@ -20,7 +20,7 @@ const InputView = ({message, setMessage, pickImage, handleSend}: InputViewProps)
             onChangeText={(text) => setMessage(text)}
             />
             <View style={styles.inputContainerView}>
-            <Entypo onPress={pickImage} name="camera" size={24} color="gray" />
+            {/* <Entypo onPress={pickImage} name="camera" size={24} color="gray" /> */}
             </View>
 
             <Pressable
