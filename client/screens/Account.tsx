@@ -4,7 +4,7 @@ import { AuthContext } from '../context/authContext';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import LogoutButton from '../components/Ui/LogoutButton';
-import { Feather, MaterialIcons, Entypo, AntDesign } from '@expo/vector-icons';
+import { Feather, MaterialIcons, Entypo, AntDesign, MaterialCommunityIcons  } from '@expo/vector-icons';
 
 // @ts-ignore
 import { Styles } from '../constants/Color';
@@ -12,6 +12,7 @@ import { formattedDate } from '../utils/formatTime';
 import i18next from 'i18next';
 import { languageResources } from '../services/i18next';
 import languagesList from '../services/languagesList.json';
+import EditButton from '../components/Ui/EditButton';
 
 /* TypeScript Definitions */
 type Language = {
@@ -36,14 +37,25 @@ const Account: React.FC<LanguageTypes<Languages>>  = () => {
     /* Local state */
     const [name, setName] = useState<string>(user?.name);
     const [phone, setPhone] = useState<string>(user?.phone);
+    const [email, setEmail] = useState<string>(user?.email);
     const [password, setPassword] = useState<string>(user?.password);
-    const [email] = useState<string>(user?.email);
     const [loading, setLoading] = useState<boolean>(false);
+    const [editable, setEditable] = useState<boolean>(false);
+    const [image, setImage] = useState<string>(user?.image);
 
     const {height} = useWindowDimensions();
-    // console.log('HEIGHT ---> ',height)
 
-    /*  */
+    /* Handle Image Edit Functionality */
+    const handleImageEdit = () => {
+        // Will be done after Message page
+    }
+
+    /* Handle Editable Functionality */
+    const handleEditability = () => {
+        setEditable(!editable);
+    }
+
+    /* Gandle Language Selection */
     const changeLng = (lng: string) => {
         i18next.changeLanguage(lng);
         setVisible(false);
@@ -56,7 +68,7 @@ const Account: React.FC<LanguageTypes<Languages>>  = () => {
             const {data} = await axios.patch(
                 '/auth/update-user',
                 {
-                    name, password, email
+                    name, password, email, phone, image,
             });
             setLoading(false)
             let UD = JSON.stringify(data);
@@ -83,11 +95,14 @@ const Account: React.FC<LanguageTypes<Languages>>  = () => {
                 <View style={styles.imageContainer}>
                     <View style={styles.imageBoxContainer}>
                         <Image 
-                            source={{ uri: user.image }}
+                            source={{ uri: image }}
                             style={styles.imageBox}
                         />
+                        <View style={styles.editButtonContainer}>
+                            <EditButton onPress={handleImageEdit} icon={'image'}/>
+                        </View>
                     </View>
-                    <Text style={styles.userName}>{user.name}</Text>
+                    <Text style={styles.userName}>{name}</Text>
                     <View style={styles.locationContainer}>
                         <View style={{flexDirection: 'row', alignItems: "center", gap: 4}}>
                             <Entypo name="location-pin" size={24} color={Styles.colors.bluePrimary} />
@@ -103,45 +118,75 @@ const Account: React.FC<LanguageTypes<Languages>>  = () => {
                 {/* Profile Info */}
                 {/* @ts-ignore */}
                 <ScrollView style={[styles.boxContainer,{height: adjustedScreen}]}>
+
                     {/* Phone */}
                     <View style={styles.profileContainer}>
+                        <View style={{flexDirection: 'row', alignItems: 'center', columnGap: 20, }}>
                         <Feather name="phone" size={24} color={Styles.colors.bluePrimary} />
-                        <View>
-                            <Text style={styles.elementGap}>{t('Phone Number')}</Text>
-                            <View style={styles.inputContainer}>
-                                <TextInput
-                                    // style={styles.inputBox}
-                                    editable={false}
-                                    keyboardType='phone-pad'
-                                    value={phone}
-                                    onChangeText={(text) => setPhone(text)}
-                                />
+                            <View>
+                                <Text style={styles.elementGap}>{t('Phone Number')}</Text>
+                                <View style={styles.inputContainer}>
+                                    <TextInput
+                                        style={editable ? styles.editableInputBox : styles.nonEditableInputBox}
+                                        editable={editable}
+                                        keyboardType='phone-pad'
+                                        value={phone}
+                                        onChangeText={(text) => setPhone(text)}
+                                    />
+                                </View>
                             </View>
                         </View>
+                        <EditButton onPress={handleEditability} icon={'edit'}/>
                     </View>
                     {/* Email */}
                     <View style={styles.profileContainer}>
-                        <Feather name="mail" size={24} color={Styles.colors.bluePrimary} />
-                        <View>
-                            <Text style={styles.elementGap}>{t('Email')}</Text>
-                            <Text>{user.email}</Text>
+                        <View style={{flexDirection: 'row', alignItems: 'center', columnGap: 20, }}>
+                            <Feather name="mail" size={24} color={Styles.colors.bluePrimary} />
+                            <View>
+                                <Text style={styles.elementGap}>{t('Email')}</Text>
+                                <View style={styles.inputContainer}>
+                                    <TextInput
+                                        style={editable ? styles.editableInputBox : styles.nonEditableInputBox}
+                                        editable={editable}
+                                        keyboardType='default'
+                                        value={email}
+                                        onChangeText={(text) => setEmail(text)}
+                                    />
+                                </View>
+                            </View>
                         </View>
+                        <EditButton onPress={handleEditability} icon={'edit'}/>
                     </View>
                     {/* Password */}
                     <View style={styles.profileContainer}>
-                    <Entypo name="key" size={24} color={Styles.colors.bluePrimary}  />
-                        <View>
-                            <Text style={styles.elementGap}>{t('Password')}</Text>
-                            <Text>***********</Text>
+                        <View style={{flexDirection: 'row', alignItems: 'center', columnGap: 20, }}>
+                            <Entypo name="key" size={24} color={Styles.colors.bluePrimary}  />
+                            <View>
+                                <Text style={styles.elementGap}>{t('Password')}</Text>
+                                <View style={styles.inputContainer}>
+                                    <TextInput
+                                        style={editable ? styles.editableInputBox : styles.nonEditableInputBox}
+                                        editable={editable}
+                                        keyboardType='phone-pad'
+                                        value={password}
+                                        secureTextEntry={true}
+                                        placeholder='************'
+                                        onChangeText={(text) => setPassword(text)}
+                                    />
+                                </View>
+                            </View>
                         </View>
+                        <EditButton onPress={handleEditability} icon={'edit'}/>
                     </View>
                     {/* Last Update */}
                     <View style={styles.profileContainer}>
-                    <MaterialIcons name="update" size={24} color={Styles.colors.bluePrimary} />
-                        <View>
-                            <Text style={styles.elementGap}>{t('Last Update')}</Text>
-                            <Text>{formattedDate(user.updatedAt)}</Text>
-                        </View>
+                    <View style={{flexDirection: 'row', alignItems: 'center', columnGap: 20, }}>
+                        <MaterialIcons name="update" size={24} color={Styles.colors.bluePrimary} />
+                            <View>
+                                <Text style={styles.elementGap}>{t('Last Update')}</Text>
+                                <Text>{formattedDate(user.updatedAt)}</Text>
+                            </View>
+                    </View>
                     </View>
                 </ScrollView>
                 <View >
@@ -198,36 +243,6 @@ const Account: React.FC<LanguageTypes<Languages>>  = () => {
                         <LogoutButton />
                     </View>
                 </View>
-                    {/* <View style={styles.inputContainer}>
-                    <Text style={styles.inputText}>{t('Name')}</Text>
-                    <TextInput
-                            style={styles.inputBox}
-                            value={name}
-                            onChangeText={(text) => setName(text)}
-                        />
-                    </View> */}
-                {/* <View style={styles.inputContainer}>
-                    <Text style={styles.inputText}>{t('Email')}</Text>
-                    <TextInput style={styles.inputBox} value={email} editable={false} />
-                </View> */}
-                {/* <View style={styles.inputContainer}>
-                    <Text style={styles.inputText}>{t('Password')}</Text>
-                    <TextInput
-                        style={styles.inputBox}
-                        value={password}
-                        keyboardType={'numeric'}
-                        onChangeText={(text) => setPassword(text)}
-                        secureTextEntry={true}
-                    />
-                </View>
-                <View style={styles.inputContainer}>
-                    <Text style={styles.inputText}>{t('Role')}</Text>
-                    <TextInput
-                        style={styles.inputBox}
-                        value={state?.user.role}
-                        editable={false}
-                    />
-                </View> */}
             </View>
         </View>
     )
@@ -255,6 +270,13 @@ const styles = StyleSheet.create({
         borderRadius: 12,
         backgroundColor: 'transparent',
     },
+    editButtonContainer: {
+        position: 'absolute',
+        justifyContent: 'center',
+        alignItems: 'center',
+        top: 70,
+        left: 70,
+    },
     userName: {
         paddingVertical: 12,
         fontSize: 24,
@@ -271,7 +293,7 @@ const styles = StyleSheet.create({
         paddingVertical :10,
         marginHorizontal: '15%',
         flexDirection: "row",
-        justifyContent: "flex-start",
+        justifyContent: 'space-between',
         alignItems: "center",
         gap: 16,
         borderBottomWidth: 1,
@@ -299,6 +321,16 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         width: 70,
         color: "gray",
+    },
+    editableInputBox: {
+        borderRadius: 10,
+        backgroundColor: Styles.colors.lightCoral,
+        height: 24,
+        width: 160,
+        paddingLeft: 12,
+    },
+    nonEditableInputBox: {
+        paddingLeft: 12,
     },
     inputBox: {
         width: 250,

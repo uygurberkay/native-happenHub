@@ -118,7 +118,7 @@ export const loginController = async (req,res) => {
 
 export const updateUserController = async (req,res) => {
     try {
-        const {name, password, email, avatar} = req.body;
+        const {name, password, email, image, phone} = req.body;
 
         // User Validate
         const user = await userModel.findOne({email})
@@ -130,12 +130,24 @@ export const updateUserController = async (req,res) => {
                 message: "Password must be at least 6 characters long",
             })
         }
+
+        // Phone Validate
+        if(phone && phone.length !== 13) {
+            return res.status(StatusCodes.BAD_REQUEST).json({
+                success: false,
+                message: "Phone must be 13 characters long",
+            })
+        }
+
         const hashedPassword = password ? await hashPassword(password) : undefined;
 
         // Updated User
         const updatedUser = await userModel.findOneAndUpdate({email}, {
             name: name || user.name,
-            password: hashedPassword || user.password
+            password: hashedPassword || user.password,
+            email: email || user.email,
+            image: image || user.image,
+            phone: phone || user.phone,
         }, {new: true});
 
         updatedUser.password = undefined;
