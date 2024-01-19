@@ -3,7 +3,7 @@ import multer from 'multer'
 // Configure multer for handling file uploads
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, "files/"); // Specify the desired destination folder
+        cb(null, "file//"); // Specify the desired destination folder
     },
     filename: function (req, file, cb) {
         // Generate a unique filename for the uploaded file

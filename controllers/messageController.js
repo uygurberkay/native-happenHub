@@ -51,10 +51,6 @@ export const sendMessage =  async (req, res) => {
     }
 };
 
-export const sendMultipleTypeMessages = () => {
-    upload.single("imageFile");
-    sendMessage();
-}
 
 /* MESSAGES BETWEEN USERS */
 

@@ -24,13 +24,13 @@ const ChatMessagesScreen = () => {
   const [state, setState]: any = useContext(AuthContext);
   const { user, token } = state;
   const userId = user._id;
-  const [selectedMessages, setSelectedMessages] = useState([]);
+  const [selectedMessages, setSelectedMessages] = useState<any[]>([]);
   const [messages, setMessages] = useState([]);
   const [recepientData, setRecepientData] = useState();
   const navigation = useNavigation();
   const [selectedImage, setSelectedImage] = useState("");
   const route = useRoute();
-  const { recipientId } = route.params;
+  const { recipientId } : any = route.params;
   const [message, setMessage] = useState("");
 
   const scrollViewRef = useRef<any>(null);
@@ -152,10 +152,12 @@ const ChatMessagesScreen = () => {
                   borderRadius: 15,
                   resizeMode: "cover",
                 }}
+                // @ts-ignore
                 source={{ uri: recepientData?.image }}
               />
 
               <Text style={{ marginLeft: 5, fontSize: 15, fontWeight: "bold" }}>
+                {/* @ts-ignore */}
                 {recepientData?.name}
               </Text>
             </View>
@@ -203,19 +205,19 @@ const ChatMessagesScreen = () => {
   };
 
   const pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
+    // let result = await ImagePicker.launchImageLibraryAsync({
+    //   mediaTypes: ImagePicker.MediaTypeOptions.All,
+    //   allowsEditing: true,
+    //   aspect: [4, 3],
+    //   quality: 1,
+    // });
 
-    // console.log(result);
-    if (!result.canceled) {
-      handleSend("image", result?.uri);
-    }
+    // // console.log(result);
+    // if (!result.canceled) {
+    //   handleSend("image", result?.uri);
+    // }
   };
-  const handleSelectMessage = (message) => {
+  const handleSelectMessage = (message: any) => {
     //check if the message is already selected
     const isSelected = selectedMessages.includes(message._id);
 

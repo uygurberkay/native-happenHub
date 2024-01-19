@@ -22,24 +22,24 @@ const MessageContainer = ({messages, selectedMessages, handleSelectMessage, user
             const isSelected = selectedMessages.includes(item._id);
             return (
                 <Pressable
-                onLongPress={() => handleSelectMessage(item)}
-                key={index}
-                style={[
-                    /* Checks who send messages */
-                    item?.senderId?._id === userId
-                    ? styles.senderBoxContainer
-                    : styles.recipientBoxContainer,
+                    onLongPress={() => handleSelectMessage(item)}
+                    key={index}
+                    style={[
+                        /* Checks who send messages */
+                        item?.senderId?._id === userId
+                        ? styles.senderBoxContainer
+                        : styles.recipientBoxContainer,
 
-                    /* Selected MessageBox */
-                    isSelected && styles.selectedBox,
-                ]}
-                >
-                <Text style={{ fontSize: 13, textAlign: isSelected ? "right" : "left" }} >
-                    {item?.message}
-                </Text>
-                <Text style={styles.timeText} >
-                    {formatTime(item.timeStamp)}
-                </Text>
+                        /* Selected MessageBox */
+                        isSelected && styles.selectedBox,
+                    ]}
+                    >
+                    <Text style={{ fontSize: 13, textAlign: isSelected ? "right" : "left" }} >
+                        {item?.message}
+                    </Text>
+                    <Text style={styles.timeText} >
+                        {formatTime(item.timeStamp)}
+                    </Text>
                 </Pressable>
             );
             }

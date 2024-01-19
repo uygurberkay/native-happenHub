@@ -3,7 +3,6 @@ import {
     deleteMessage,
     messagesBetweenUsers, 
     sendMessage, 
-    sendMultipleTypeMessages
 } from '../controllers/messageController.js';
 import { authMiddleware } from '../middleware/authMiddleware.js';
 import { upload } from '../middleware/multerMiddleware.js';
