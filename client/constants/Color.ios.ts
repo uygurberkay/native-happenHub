@@ -8,6 +8,7 @@ export const Styles = {
         darkGrey: '#CCCCCC',
         bluePrimary: '#2FD1C5',
         blueSecondary: '#296E69',
+        blueThird: '#B2E1DE',
         lightCharcoal: '#00394C',
         darkCharcoal: '#2F2A32',
         charcoal: '#37313C',

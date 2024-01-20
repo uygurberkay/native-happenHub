@@ -14,7 +14,7 @@
     "Edit" : "Edit",
     "My Profile": "My Profile",
     "Notification": "Notification",
-    "Create": "Create",
+    "Create Activity": "Create Activity",
     "Message": "Message",
     "Agenda": "Agenda",
     "Language": "Language",
@@ -29,5 +29,9 @@
     "There is no friend request": "There is no friend request",
     "Chat": "Chat",
     "Friends": "Friends",
-    "Notifications": "Notifications"
+    "Notifications": "Notifications",
+    "Task Category": "Task Category",
+    "Colaborate with": "Colaborate with",
+    "Colaboratives": "Colaboratives",
+    "Details": "Details"
 }

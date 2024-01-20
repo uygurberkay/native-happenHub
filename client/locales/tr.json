@@ -14,7 +14,7 @@
     "Edit" : "Güncelle",
     "My Profile": "Profilim",
     "Notification": "Bildirimler",
-    "Create": "Oluştur",
+    "Create Activity": "Aktivite Oluştur",
     "Message": "Mesajlar",
     "Agenda": "Ajanda",
     "Language": "Dil Seçimi",
@@ -29,5 +29,9 @@
     "There is no friend request": "Arkadaşlık isteği bulunamadı",
     "Chat": "Sohbet",
     "Friends": "Arkadaşlar",
-    "Notifications": "Bildirimler"
+    "Notifications": "Bildirimler",
+    "Task Category": "Kategoriler",
+    "Colaborate with": "Ekip arkadaşı ekle",
+    "Colaboratives": "Ekip",
+    "Details": "Detaylar"
 }

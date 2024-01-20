@@ -23,7 +23,7 @@ const Message = ({navigation}:any) => {
     const [title,setTitle] = useState('')
     const [description,setDescription] = useState('')
     const [loading,setLoading] = useState(false)
-    console.log('ACTIVE TAB --> ', activeTab)
+    // console.log('ACTIVE TAB --> ', activeTab)
     useLayoutEffect(() => {
         navigation.setOptions({
             headerTitle: `${t('Message')}`,

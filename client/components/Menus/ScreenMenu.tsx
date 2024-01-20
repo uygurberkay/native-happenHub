@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 
 /* Icons */
 import { AntDesign } from '@expo/vector-icons';
@@ -11,20 +11,21 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { AuthContext } from '../../context/authContext';
 
 /* Screens and Components */
-import Home from '../../screens/Home';
 import Login from '../../screens/auth/Login';
 import Register from '../../screens/auth/Register';
 import LanguageSelector from '../LanguageSelector';
 import Message from '../../screens/Message';
 import Account from '../../screens/Account';
 import { Image, Text, } from 'react-native';
-import IconButton from '../Ui/IconButton';
+
 // @ts-ignore
 import { Styles } from '../../constants/Color';
 import CreateTask from '../../screens/CreateTask';
 import { View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import PersonalChat from '../Messages/PersonalChat/PersonalChat';
+import Agenda from '../../screens/Ageda';
+import Notification from '../../screens/Notification';
 
 const MessagePage = () => {
     const Stack = createNativeStackNavigator()
@@ -52,6 +53,7 @@ const MessagePage = () => {
 const BottomNavigation = () => {
     const BottomTab = createBottomTabNavigator();
     const { t } = useTranslation()
+
     return (
         <BottomTab.Navigator
             screenOptions={({navigation}) => ({
@@ -67,7 +69,7 @@ const BottomNavigation = () => {
         >
             <BottomTab.Screen 
                 name="Agenda" 
-                component={Home} 
+                component={Agenda} 
                 options={{
                     tabBarLabel: `${t('Agenda')}`,
                     headerTitle: `${t('Agenda')}`, // Will be change later, I think
@@ -90,7 +92,7 @@ const BottomNavigation = () => {
                 component={CreateTask} 
                 options={{
                     tabBarLabelStyle: {display: 'none', },
-                    headerTitle: `${t('Create')}`,
+                    // headerTitle: `${t('Create Activity' )}`,
                     tabBarIconStyle: {backgroundColor: 'purple'},
                     headerStyle : { backgroundColor : Styles.colors.lightCoral},
                     tabBarIcon: ({color}) => (
@@ -113,7 +115,7 @@ const BottomNavigation = () => {
             />
             <BottomTab.Screen 
                 name="Notification" 
-                component={LanguageSelector} 
+                component={Notification} 
                 options={{
                     headerTitle: `${t('Notification')}`,
                     tabBarLabel: `${t('Notification')}`,
