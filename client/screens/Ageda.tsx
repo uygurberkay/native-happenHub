@@ -1,33 +1,65 @@
-import { View, Text, ScrollView, StyleSheet } from 'react-native'
-import React, { useEffect, useState } from 'react'
-import PostCard from '../components/PostCard'
+import { View, ScrollView, StyleSheet, ScrollViewBase } from 'react-native'
+import React, { useContext, useEffect, useState } from 'react'
 import axios from 'axios';
+import { AuthContext } from '../context/authContext';
+import AgendaScreen from '../components/Agenda/AgendaScreen';
+// @ts-ignore
+import { Styles } from '../constants/Color';
+import EventCard from '../components/Agenda/EventCard';
 
 const Agenda = () => {
-    /* Local state */
-    const [posts, setPosts] : any = useState([]);
-    const [loading, setLoading] : any = useState(false);
+    /* Authentication */
+    const [state, setState]: any = useContext(AuthContext);
+    const { user, token } = state;
+    const userId = user._id;
 
-    /* Get user post */
-    const getUserPosts = async () => {
-        try {
-            setLoading(true)
-            const {data} = await axios.get('/post/get-user-post')
-            setLoading(false)
-            setPosts(data?.userPosts)
-        } catch (error) {
-            setLoading(false)
-            alert(error)
-        }
-    }
+    /* Local state */
+    const [events, setEvents] : any = useState([]);
+    const [matchEvets, setMatchEvents] : any = useState([]);
+    const [loading, setLoading] : any = useState(false);
+    const [formattedDate, setFormattedDate] = useState('');
+
     useEffect(() => {
-        getUserPosts()
+        /* Gets user agendas*/
+        const getUserAgendas = async () => {
+            try {
+                setLoading(true)
+                const response = await axios.get(`/agenda/get-events/${userId}`)
+                setLoading(false)
+                // console.log('RESPONSE DATA --> ',response.data)
+                setEvents(response.data)
+            } catch (error) {
+                setLoading(false)
+                alert(error)
+            }
+        }
+        getUserAgendas()
     },[])
+
+    useEffect(() => {
+        /* Gets user agendas match by Date */
+        const getUserAgendasByDate = async () => {
+            try {
+                setLoading(true)
+                const response = await axios.get(`/agenda/get-events/${userId}/${formattedDate}`)
+                setLoading(false)
+                setMatchEvents(response.data)
+            } catch (error) {
+                setLoading(false)
+                alert(error)
+            }
+        }
+        getUserAgendasByDate();
+    }, [formattedDate]);
 
     return (
         <View style={styles.container}>
+            <AgendaScreen
+                formattedDate={formattedDate}
+                setFormattedDate={setFormattedDate}
+            />
             <ScrollView>
-                <PostCard posts={posts} />
+                <EventCard events={matchEvets} />
             </ScrollView>
         </View>
     )
@@ -36,8 +68,8 @@ const Agenda = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        margin: 10,
-        justifyContent: "space-between",
+        borderWidth: 1,
+        borderColor: Styles.colors.lightBlue,
     },
 });
 

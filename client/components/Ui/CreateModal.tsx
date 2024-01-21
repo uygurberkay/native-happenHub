@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     },
     modalContainer: {
         flex: 1,
-        backgroundColor: 'rgba(0, 0, 0, 0.1)',
+        backgroundColor: 'rgba(0, 0, 0, 0.4)',
     },
     modalContent: {
         position: 'absolute',

@@ -9,7 +9,7 @@ const RootNavigation = () => {
         <AuthProvider>
             <PostProvider>
                 <ScreenMenu/>
-                <StatusBar style='auto'/>
+                <StatusBar style='dark'/>
             </PostProvider>
         </AuthProvider>
     )

@@ -3,21 +3,11 @@ import {  ScrollView, StyleSheet,  Text, Pressable, View } from 'react-native';
 
 interface ColorCheckboxMapProps {
     colorData: any;
+    selectedColor: any;
+    setSelectedColor: any;
 }
 
-const ColorCheckboxMap = ({colorData}: ColorCheckboxMapProps) => {
-    const [selectedColor, setSelectedColor] = useState(null);
-
-    // Sample color data
-    // const colorData = [
-    //     { id: 1, color: '#FF5733' },
-    //     { id: 2, color: '#33FF57' },
-    //     { id: 3, color: '#4bff33' },
-    //     { id: 4, color: '#ffcc33' },
-    //     { id: 5, color: '#ff3355' },
-    //     { id: 6, color: '#4b33ff' },
-    //     { id: 7, color: '#020f07' },
-    // ];
+const ColorCheckboxMap = ({colorData, selectedColor, setSelectedColor}: ColorCheckboxMapProps) => {
 
     const toggleColor = (color: any) => {
         // Check if the color is already selected, then remove it; otherwise, set it as the selected color
@@ -30,7 +20,7 @@ const ColorCheckboxMap = ({colorData}: ColorCheckboxMapProps) => {
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={styles.checkboxContainer}
             >
-            {colorData.map((item) => (
+            {colorData.map((item: any) => (
                 <Pressable
                 key={item.id}
                 onPress={() => toggleColor(item.color)}

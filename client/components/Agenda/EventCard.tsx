@@ -2,27 +2,23 @@ import { View, Text, StyleSheet } from 'react-native'
 import React from 'react'
 import moment from 'moment';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import { Styles } from '../../constants/Color.android';
 
-interface Post {
-    title: string;
-    description: string;
-    postedBy: {
-        name: string;
-    };
-    createdAt: string;
+interface Event {
+    
 }
 
-interface PostCardProps {
-    posts?: Post[];
+interface EventCardProps {
+    events?: any[];
 }
 
-
-const PostCard: React.FC<PostCardProps>  = ({posts}) => {
+const EventCard: React.FC<EventCardProps>  = ({events}) => {
+    console.log('COLOR --> ',events)
     return (
-        <View>
-            <Text style={styles.heading}>Total Posts {posts?.length}</Text>
-            {posts?.map((post,index) => (
-                <View style={styles.card} key={index}>
+        <View style={styles.container}>
+            <Text style={styles.heading}>Total Posts {events?.length}</Text>
+            {events?.map((post,index) => (
+                <View style={[styles.card, {backgroundColor: post.color}]} key={index}>
                     <View>
                         <Text style={styles.title}>Title: {post?.title}</Text>
                         <Text style={styles.desc}> {post?.description}</Text>
@@ -46,13 +42,15 @@ const PostCard: React.FC<PostCardProps>  = ({posts}) => {
 }
 
 const styles = StyleSheet.create({
+    container:{
+        backgroundColor: Styles.colors.white,
+    },
     heading: {
         color: 'green',
         textAlign: 'center',
     },
     card: {
         width: '100%',
-        backgroundColor: '#ffffff',
         borderWidth: .4,
         borderColor: 'gray',
         padding: 20,
@@ -77,4 +75,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default PostCard
+export default EventCard

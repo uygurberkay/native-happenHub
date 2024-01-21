@@ -17,6 +17,7 @@ import OptionInput from '../components/Ui/OptionInput';
 import ColorCheckBox from '../components/Ui/ColorCheckBox';
 import Switcher from '../components/Ui/Switcher';
 import TimeSelectModal from '../components/Ui/TimeSelectModal';
+import axios from 'axios';
 
 type RootStackParamList = {
     Agenda: any;
@@ -29,8 +30,10 @@ type ChatScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Agenda'
 const CreateTask = () => {
     const [state, setState]: any = useContext(AuthContext);
     const { user, token } = state;
+    const userId = user._id;
 
     const { t } = useTranslation();
+    const [loading, setLoading] : any = useState(false);
     const [visible, setVisible] = useState<boolean>(true)
     const [visibleTimeModal, setVisibleTimeModal] = useState<boolean>(false)
     const [visibleTimeModal2, setVisibleTimeModal2] = useState<boolean>(false)
@@ -42,14 +45,15 @@ const CreateTask = () => {
     const [endTime, setEndTime] = useState();
     const [taskCategory, setTaskCategory] = useState<any>()
     const [colaboratives, setColaboratives] = useState<String[]>([])
+    const [selectedColor, setSelectedColor] = useState(null);
     const [details, setDetails] = useState('') 
-    
-    const [isEnabled, setIsEnabled] = useState(false);
+    const [isEnabled, setIsEnabled] = useState<boolean>();
+    console.log(isEnabled)
     const [value, setValue] = useState(dayjs());
 
     /* DUMMY  */
     const taskCategories = ['Friends', 'Art', 'Events']
-    const colaborativeData = ['Damla', 'Melis', 'Pelinsu', 'Beyza']
+    const colaborativeData = [{key: '1',value:'Damla'}, {key: '2',value:'Melis'}, {key: '3',value:'Pelinsu'}, {key: '4',value:'Beyza'}]
     const colorData = [
         { id: 1, color: '#FF5733' },
         { id: 2, color: '#33FF57' },
@@ -80,6 +84,18 @@ const CreateTask = () => {
         navigation.navigate("Agenda")
     };
 
+    /* Handles clear input */
+    const clearInputs = () => {
+        setActivityName('')
+        setStartTime(undefined)
+        setEndTime(undefined)
+        setTaskCategory(null)
+        setColaboratives([])
+        setSelectedColor(null)
+        setDetails('')
+        setIsEnabled(false)
+    }
+
     /* Handles Pro User Notification */
     const handlePro = () => {
         Alert.alert('Feature not available', 'Upgrade your subscription', [
@@ -87,13 +103,46 @@ const CreateTask = () => {
         ]);
     }
 
-    /* Create Event */
-    const handleCreateEvent = () => {
+    const handleCreateEvent2 = async () => {
         console.log('EVENT CREATED')
         setVisible(!visible)
         // navigation.navigate('')
     }
-
+    /* Create Event */
+    const handleCreateEvent = async () => {
+        try {
+            setLoading(true)
+            if (!activityName || !startTime || 
+                !taskCategory || !details || 
+                !selectedColor || !endTime){
+                setLoading(false)
+                Alert.alert('Please fill all fields')
+                return;
+            }
+            const response = await axios.post(
+                '/agenda/create-event',{
+                    title: activityName,
+                    startDate: startTime,
+                    endDate: endTime,
+                    categories: taskCategory,
+                    colaboratives: [ userId,  ], // Bunu sonradan düzelt. Fetchlediğin datanın formatında yap
+                    description: details,
+                    color: selectedColor,
+                    status:isEnabled,
+                })
+            clearInputs()
+            console.log('Response --> ', response)
+            if (response.status === 201) {
+                setLoading(false)
+                setVisible(!visible)
+                navigation.navigate('Agenda')
+            }
+        } catch (error) {
+            setLoading(false)
+            alert(error)
+        }
+    }
+    
     return (
         <>
             {/* Create Box Pop-up */}
@@ -101,7 +150,7 @@ const CreateTask = () => {
                 visible={visible}
                 toggleModal={toggleModal}
                 handlePro={handlePro}
-                handleCreateEvent={handleCreateEvent}
+                handleCreateEvent={handleCreateEvent2}
             />
             {/* Modal for Start Time */}
             <TimeSelectModal 
@@ -185,7 +234,11 @@ const CreateTask = () => {
                 </View>
                 <View style={styles.bottomContainer}>
                 <View style={styles.colorCheckBox}>
-                    <ColorCheckBox colorData={colorData}/>
+                    <ColorCheckBox 
+                        colorData={colorData} 
+                        selectedColor={selectedColor} 
+                        setSelectedColor={setSelectedColor}
+                    />
                 </View>
                 <View>
                     <Switcher 
@@ -194,14 +247,14 @@ const CreateTask = () => {
                     />
                 </View>
                 <Pressable  
-                    onPress={() => setVisible(true)}
+                    onPress={handleCreateEvent}
                     style={({pressed}) => [
                         { backgroundColor: pressed ? Styles.colors.lightCharcoal : Styles.colors.bluePrimary},
                         styles.updateBtn,
                         ]}
                 >
                     <Text style={styles.updateBtnText}>
-                        {t('Create')}
+                        {!loading ? t('Create Activity') : t('Activity Created')}
                     </Text>
                 </Pressable>
             </View>

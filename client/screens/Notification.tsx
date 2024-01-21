@@ -1,6 +1,7 @@
 import { 
     View, 
-    StyleSheet, 
+    StyleSheet,
+    Text, 
 } from 'react-native'
 import React, { useContext } from 'react'
 import { AuthContext } from '../context/authContext'
@@ -11,12 +12,9 @@ const Notification = () => {
     const [state]: any = useContext(AuthContext);
 
     return (
-        // <View style={styles.container}>
-        //     <TimeSelectModal />
-        // </View>
-        <>
-                    <TimeSelectModal />
-        </>
+        <View style={styles.container}>
+            <Text>Notification</Text>
+        </View>
     )
 }
 

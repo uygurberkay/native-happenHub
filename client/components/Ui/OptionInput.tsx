@@ -19,7 +19,6 @@ const OptionInput = ({taskCategory, setTaskCategory, colaboratives, setColaborat
 
     const { t } = useTranslation()
     const [selected, setSelected] = useState("");
-    const [categories, setCategories] = useState([]);
     
     const data = [ 
         {key:'Canada', value:'Canada'},
@@ -35,7 +34,7 @@ const OptionInput = ({taskCategory, setTaskCategory, colaboratives, setColaborat
         <View style={{marginTop: 10,gap: 10}}>
             {/* Task Category */}
             <SelectList 
-                setSelected={setSelected} 
+                setSelected={setTaskCategory} 
                 data={taskCategories}  
                 placeholder={t('Task Category')}
                 boxStyles={styles.optionInput}
@@ -43,8 +42,6 @@ const OptionInput = ({taskCategory, setTaskCategory, colaboratives, setColaborat
 
             {/* Colaborates */}
             <MultipleSelectList 
-                setSelected={(val: any) => setCategories(val)} 
-                data={colaborativeData} 
                 // @ts-ignore
                 placeholder={
                     <>
@@ -52,9 +49,11 @@ const OptionInput = ({taskCategory, setTaskCategory, colaboratives, setColaborat
                         <Text>{'   '}{t('Colaborate with')}</Text>
                     </>
                 }
+                data={colaborativeData} 
                 save="value"
                 label={t('Colaboratives')}
                 boxStyles={styles.optionInput}
+                setSelected={(val: any) => setColaboratives(val)} 
             />
         </View>
     )
