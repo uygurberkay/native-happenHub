@@ -24,47 +24,29 @@ const AgendaScreen = ({formattedDate, setFormattedDate}: AgendaScreenProps) => {
         <View>
             <CalendarStrip
                 scrollable
-                style={{height: 240, paddingTop: 20, paddingBottom: 10, }}
-                /* Style Background Box */
+                style={{height: 240, paddingTop: 20, paddingBottom: 10, }} // Style Background Box
                 calendarColor={Styles.colors.lightCoral}
                 onDateSelected={onDateSelected}
-                // calendarHeaderStyle={{color: Styles.colors.lightCharcoal}}
-                // dateNumberStyle={{color: Styles.colors.lightCharcoal}}
-                // dateNameStyle={{color: Styles.colors.lightCharcoal}}
-                // iconContainer={{flex:.2}}
-                /* Style Unselected Box */
-                daySelectionAnimation={{
+                daySelectionAnimation={{ //  Style Unselected Box 
                     type: 'border', 
                     duration: 200, 
                     borderWidth: 2 ,
                     borderHighlightColor: Styles.colors.blueSecond,
                 }}
-                // innerStyle={{backgroundColor: Styles.colors.blueThird, marginTop: 20}}
-                // calendarHeaderContainerStyle={{backgroundColor: Styles.colors.bluePrimary}}
                 dayContainerStyle={{
                     backgroundColor: Styles.colors.white, 
                     borderColor: Styles.colors.lightBlue ,
                     borderRadius: 8,
                     
                 }}
-                // weekendDateNameStyle={{color: 'red'}}
-                // weekendDateNumberStyle={{color: 'red'}}
-                // highlightDateNameStyle={{borderColor: 'red'}}
-                // highlightDateNumberContainerStyle={{backgroundColor: 'red'}}
-                /* Style Selected Box */
-                highlightDateContainerStyle={{backgroundColor: Styles.colors.bluePrimary}}
-                // disabledDateNameStyle={{backgroundColor: 'red'}}
-                // markedDatesStyle={{backgroundColor: 'red'}}
-                // headerText={''}
+                highlightDateContainerStyle={{backgroundColor: Styles.colors.bluePrimary}} // Style Selected Box
                 upperCaseDays={false}
                 dateNameStyle={{color: Styles.colors.grey, fontSize: 8}}
                 dateNumberStyle={{color: Styles.colors.grey, fontSize: 12}}
                 highlightDateNameStyle={{color: Styles.colors.lightCharcoal, fontSize: 14}}
                 highlightDateNumberStyle={{color: Styles.colors.lightCharcoal, fontSize: 16}}
             />
-            <Text>{formattedDate}</Text>
         </View>
-        
         </>
     )
 }

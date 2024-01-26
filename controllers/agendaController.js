@@ -19,7 +19,7 @@ export const createEvent = async (req, res) => {
         } = req.body;
 
         // Validation
-        if(!title || !startDate || !endDate || !categories || !colaboratives || !description || !color || !status) {
+        if(!title || !startDate || !endDate || !categories || !colaboratives || !description || color === null ) {
             return (
                 res.status(StatusCodes.BAD_REQUEST).json({
                 success: false,

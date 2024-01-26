@@ -13,25 +13,26 @@ interface EventCardProps {
 }
 
 const EventCard: React.FC<EventCardProps>  = ({events}) => {
-    console.log('COLOR --> ',events)
+    console.log('EVENTS --> ',events)
+
     return (
         <View style={styles.container}>
             <Text style={styles.heading}>Total Posts {events?.length}</Text>
             {events?.map((post,index) => (
-                <View style={[styles.card, {backgroundColor: post.color}]} key={index}>
+                <View style={[styles.card, {backgroundColor: post.color.color}]} key={index}>
                     <View>
-                        <Text style={styles.title}>Title: {post?.title}</Text>
-                        <Text style={styles.desc}> {post?.description}</Text>
+                        <Text style={[styles.title, {color: post.color.theme ? Styles.colors.darkCharcoal : Styles.colors.darkGrey}]}>Title: {post?.title}</Text>
+                        <Text style={[styles.desc, {color: post.color.theme ? Styles.colors.darkCharcoal : Styles.colors.darkGrey}]}> {post?.description}</Text>
                     </View>
                     <View style={styles.footer}>
                         {post?.postedBy?.name && (
-                            <Text> 
-                                <FontAwesome5 name='user-alt' color={'orange'}/>{'  '}
+                            <Text style={{color: post.color.theme ? Styles.colors.darkCharcoal : Styles.colors.darkGrey}}> 
+                                <FontAwesome5 name='user-alt' color={post.color.theme ? Styles.colors.darkCharcoal : Styles.colors.darkGrey}/>{'  '}
                                 {post?.postedBy?.name}
                             </Text>
                         )}
-                        <Text> 
-                            <FontAwesome5 name='clock' color={'orange'}/>{'  '}
+                        <Text style={{color: post.color.theme ? Styles.colors.darkCharcoal : Styles.colors.darkGrey}}> 
+                            <FontAwesome5 name='clock' color={post.color.theme ? Styles.colors.darkCharcoal : Styles.colors.darkGrey}/>{'  '}
                             {moment( post?.createdAt).format('DD.MM.YYYY')}
                         </Text>
                     </View>

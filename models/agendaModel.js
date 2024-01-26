@@ -23,11 +23,13 @@ const agendaSchema = new mongoose.Schema({
         required: [true, 'please add description'],
     },
     color: {
-        type: String,
+        type: Object,
         required: true,
     },
     status: {
         type: Boolean,
+        enum: [true , false],
+        default: false,
         // Private --> true,
         // Public --> false
     },

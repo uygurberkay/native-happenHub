@@ -49,22 +49,13 @@ const CreateTask = () => {
     const [details, setDetails] = useState('') 
     const [isEnabled, setIsEnabled] = useState<boolean>();
     console.log(isEnabled)
-    const [value, setValue] = useState(dayjs());
 
     /* DUMMY  */
-    const taskCategories = ['Friends', 'Art', 'Events']
+    const taskCategories = ['Friends', 'Art', 'Events'] 
     const colaborativeData = [{key: '1',value:'Damla'}, {key: '2',value:'Melis'}, {key: '3',value:'Pelinsu'}, {key: '4',value:'Beyza'}]
-    const colorData = [
-        { id: 1, color: '#FF5733' },
-        { id: 2, color: '#33FF57' },
-        { id: 3, color: '#4bff33' },
-        { id: 4, color: '#ffcc33' },
-        { id: 5, color: '#ff3355' },
-        { id: 6, color: '#4b33ff' },
-        { id: 7, color: '#020f07' },
-    ];
+    const colorData = Styles.colorData;
 
-
+    console.log('SELECTED COLOR --> ', selectedColor)
     /* Header Settings */
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -114,7 +105,7 @@ const CreateTask = () => {
             setLoading(true)
             if (!activityName || !startTime || 
                 !taskCategory || !details || 
-                !selectedColor || !endTime){
+                selectedColor === null || !endTime){
                 setLoading(false)
                 Alert.alert('Please fill all fields')
                 return;
@@ -242,7 +233,7 @@ const CreateTask = () => {
                 </View>
                 <View>
                     <Switcher 
-                        isEnabled={isEnabled}
+                        isEnabled={isEnabled!}
                         setIsEnabled={setIsEnabled}
                     />
                 </View>
