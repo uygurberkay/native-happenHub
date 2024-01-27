@@ -11,7 +11,6 @@ import { Ionicons } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import * as ImagePicker from "expo-image-picker";
 import { AuthContext } from "../../../context/authContext";
 import axios from "axios";
 // @ts-ignore
@@ -89,40 +88,35 @@ const ChatMessagesScreen = () => {
   }, []);
 
   /* Handles Send Messages Functionality  */
-  const handleSend = async (messageType: String, imageUri: String | null ) => {
+
+  const handleSend = async (messageType: any, imageUri: any) => {
     try {
-        const formData = new FormData();
-        formData.append("senderId", userId);
-        formData.append("recipientId", recipientId);
+      const formData = new FormData();
+      formData.append("senderId", userId);
+      formData.append("recipientId", recipientId);
 
-        //if the message type id image or a normal text
-        if (messageType === "image") {
-            formData.append("messageType", "image");
-            formData.append("imageFile", {
-                uri: imageUri,
-                name: "image.jpg",
-                type: "image/jpeg",
-            } as any);
-        } else {
-            formData.append("messageType", "text");
-            formData.append("messageText", message);
-        }
+      formData.append("messageType", "text");
+      formData.append("messageText", message);
 
-        const response = await axios.post(
-          "/message/send", 
-          formData,
-        );
+      const response = await fetch("http://192.168.1.105:4000/api/v1/message/send", {
+        method: "POST",
+        body: formData,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-        if (response.status === 200) {
-            setMessage("");
-            setSelectedImage("");
+      if (response.ok) {
+        setMessage("");
+        setSelectedImage("");
 
-            fetchMessages();
-        }
+        fetchMessages();
+      }
     } catch (error) {
-        console.log("Error in sending the message", error);
+      console.log("error in sending the message", error);
     }
-};
+  };
+
 
   // console.log("messages", selectedMessages);
 
@@ -208,19 +202,7 @@ const ChatMessagesScreen = () => {
   }
   };
 
-  const pickImage = async () => {
-    // let result = await ImagePicker.launchImageLibraryAsync({
-    //   mediaTypes: ImagePicker.MediaTypeOptions.All,
-    //   allowsEditing: true,
-    //   aspect: [4, 3],
-    //   quality: 1,
-    // });
 
-    // // console.log(result);
-    // if (!result.canceled) {
-    //   handleSend("image", result?.uri);
-    // }
-  };
   const handleSelectMessage = (message: any) => {
     //check if the message is already selected
     const isSelected = selectedMessages.includes(message._id);
@@ -259,7 +241,6 @@ const ChatMessagesScreen = () => {
       <InputView 
         message={message}
         setMessage={setMessage}
-        pickImage={pickImage}
         handleSend={handleSend}
       />
 

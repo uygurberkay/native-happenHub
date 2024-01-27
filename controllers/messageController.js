@@ -33,7 +33,7 @@ export const sendMessage =  async (req, res) => {
             messageType,
             message: messageText,
             timestamp: new Date(),
-            imageUrl: messageType === "image" ? req.file.path : null,
+            // imageUrl: messageType === "image" ? req.file.path : null,
         });
     
         await newMessage.save();

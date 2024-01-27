@@ -5,13 +5,12 @@ import { Entypo, AntDesign } from "@expo/vector-icons";
 import { Styles } from '../../../constants/Color';
 
 interface  InputViewProps {
-  message: any;
+  message: string;
   setMessage: any;
-  pickImage: any;
   handleSend: any;
 }
 
-const InputView = ({message, setMessage, pickImage, handleSend}: InputViewProps) => {
+const InputView = ({message, setMessage, handleSend}: InputViewProps) => {
     return (
         <View style={styles.inputContainer}>
             <TextInput
@@ -20,12 +19,11 @@ const InputView = ({message, setMessage, pickImage, handleSend}: InputViewProps)
             onChangeText={(text) => setMessage(text)}
             />
             <View style={styles.inputContainerView}>
-            {/* <Entypo onPress={pickImage} name="camera" size={24} color="gray" /> */}
             </View>
 
             <Pressable
-            onPress={() => handleSend("text", null)}
-            style={styles.inputContainerSend}
+              onPress={() => handleSend()}
+              style={styles.inputContainerSend}
             >
             <AntDesign name="arrowup" size={20} color={Styles.colors.sunray} />
             </Pressable>

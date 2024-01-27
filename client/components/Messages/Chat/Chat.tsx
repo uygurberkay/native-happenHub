@@ -49,7 +49,7 @@ const Chat = ({ item }: any) => {
 
         return userMessages[n - 1];
     };
-    const lastMessage = getLastMessage();
+    const lastMessage : any = getLastMessage();
     // console.log(lastMessage);
     const formatTime = (time : any) => {
         const options : any = { hour: "numeric", minute: "numeric" };

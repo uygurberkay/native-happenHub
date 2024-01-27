@@ -14,7 +14,6 @@ const messageSchema = new mongoose.Schema({
         enum: ["text", "image"],
     },
     message: String,
-    imageUrl: String,
     timeStamp: {
         type: Date,
         default: Date.now,
