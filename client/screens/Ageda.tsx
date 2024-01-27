@@ -6,6 +6,8 @@ import AgendaScreen from '../components/Agenda/AgendaScreen';
 // @ts-ignore
 import { Styles } from '../constants/Color';
 import EventCard from '../components/Agenda/EventCard';
+import Notifications from '../components/Agenda/Notifications';
+import Tabs from '../components/Ui/Tabs';
 
 const Agenda = () => {
     /* Authentication */
@@ -18,6 +20,8 @@ const Agenda = () => {
     const [matchEvets, setMatchEvents] : any = useState([]);
     const [loading, setLoading] : any = useState(false);
     const [formattedDate, setFormattedDate] = useState('');
+    const tabs = ["Ongoing", "Notifications"];
+    const [activeTab, setActiveTab] = useState(tabs[0]);
 
     useEffect(() => {
         /* Gets user agendas*/
@@ -52,16 +56,51 @@ const Agenda = () => {
         getUserAgendasByDate();
     }, [formattedDate]);
 
+    const displayTabContent = () => {
+        switch (activeTab) {
+            case "Ongoing":
+                return (
+                    <ScrollView>
+                        <EventCard events={matchEvets} />
+                    </ScrollView>
+                );
+            case "Notifications":
+                return (
+                    <View>
+                        <Notifications/>
+                    </View>
+                );
+        
+            default:
+                return null;
+            }
+    }
+
     return (
+        <>
         <View style={styles.container}>
-            <AgendaScreen
-                formattedDate={formattedDate}
-                setFormattedDate={setFormattedDate}
-            />
-            <ScrollView>
-                <EventCard events={matchEvets} />
-            </ScrollView>
+            <View>
+                <View style={{backgroundColor: Styles.colors.lightCoral}}>
+                    <AgendaScreen
+                        formattedDate={formattedDate}
+                        setFormattedDate={setFormattedDate}
+                        />
+                    <View style={styles.tabContainer}>
+                        <Tabs 
+                            tabs={tabs}
+                            activeTab={activeTab}
+                            setActiveTab={setActiveTab}
+                        />
+                    </View>
+                </View>
+                <View>
+                    {displayTabContent()}
+                </View>
+            </View>
         </View>
+        </>
+        
+        
     )
 }
 
@@ -70,6 +109,10 @@ const styles = StyleSheet.create({
         flex: 1,
         borderWidth: 1,
         borderColor: Styles.colors.lightBlue,
+    },
+    tabContainer: {
+        zIndex: 1,
+        marginTop: -80 // To take up menu
     },
 });
 

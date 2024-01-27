@@ -1,11 +1,8 @@
-import { View, Text, TextInput, ScrollView, Pressable, Platform } from 'react-native'
-import React, { useContext, useEffect, useLayoutEffect, useState } from 'react'
+import { View } from 'react-native'
+import React, { useContext, useEffect, useState } from 'react'
 import { StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { MaterialIcons } from '@expo/vector-icons';
-import { Ionicons } from '@expo/vector-icons';
 import axios from "axios";
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AuthContext } from '../../../context/authContext';
 import Friends from './Friends';
 

@@ -1,6 +1,5 @@
 import { StyleSheet, Text, View ,ScrollView, Pressable} from "react-native";
 import React, { useContext,useEffect,useState } from "react";
-import { useNavigation } from "@react-navigation/native";
 import Chat from "./Chat";
 import { AuthContext } from "../../../context/authContext";
 import axios from "axios";

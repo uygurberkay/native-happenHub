@@ -1,11 +1,8 @@
 import CalendarStrip   from 'react-native-calendar-strip';
-import dayjs from 'dayjs';
-import { View, Text, Button } from 'react-native'
-import React, { useState } from 'react'
+import { View } from 'react-native'
+import React from 'react'
 // @ts-ignore
 import { Styles } from '../../constants/Color';
-import moment from 'moment';
-
 interface AgendaScreenProps{
     formattedDate: any;
     setFormattedDate: any;
@@ -24,7 +21,7 @@ const AgendaScreen = ({formattedDate, setFormattedDate}: AgendaScreenProps) => {
         <View>
             <CalendarStrip
                 scrollable
-                style={{height: 240, paddingTop: 20, paddingBottom: 10, }} // Style Background Box
+                style={{height: 200, paddingTop: 10, paddingBottom: 60, }} // Style Background Box
                 calendarColor={Styles.colors.lightCoral}
                 onDateSelected={onDateSelected}
                 daySelectionAnimation={{ //  Style Unselected Box 

@@ -28,7 +28,6 @@ const agendaSchema = new mongoose.Schema({
     },
     status: {
         type: Boolean,
-        enum: [true , false],
         default: false,
         // Private --> true,
         // Public --> false

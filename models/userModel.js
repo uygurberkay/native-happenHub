@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-        require: [true, 'Please add password'],
+        required: [true, 'Please add password'],
         min: 6,
         max: 64,
     },

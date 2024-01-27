@@ -17,6 +17,7 @@ export const Styles = {
         errorRed: '#DC7603',
         waves: '#E48FFF',
         redLight: '#B81365',
+        greenLight: '#006400',
     },
     colorData : [
         { id: 1, color: '#70d6ff' , theme: true },

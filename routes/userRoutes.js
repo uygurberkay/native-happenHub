@@ -10,7 +10,7 @@ import {
     getFriendList,
     getUserDetails,
     sendFriendRequest,
-    showFriendList
+    showFriendList,
 } from '../controllers/userController.js';
 import { authMiddleware } from '../middleware/authMiddleware.js';
 

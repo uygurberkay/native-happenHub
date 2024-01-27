@@ -20,7 +20,7 @@
     "@types/react-native-vector-icons": "^6.4.17",
     "axios": "^1.6.1",
     "expo": "~49.0.15",
-    "expo-checkbox": "^2.7.0",
+    "expo-checkbox": "~2.4.0",
     "expo-image-picker": "~14.3.2",
     "expo-status-bar": "~1.6.0",
     "i18next": "^23.6.0",

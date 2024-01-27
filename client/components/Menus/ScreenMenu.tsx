@@ -13,7 +13,6 @@ import { AuthContext } from '../../context/authContext';
 /* Screens and Components */
 import Login from '../../screens/auth/Login';
 import Register from '../../screens/auth/Register';
-import LanguageSelector from '../LanguageSelector';
 import Message from '../../screens/Message';
 import Account from '../../screens/Account';
 import { Image, Text, } from 'react-native';
@@ -26,6 +25,7 @@ import { useTranslation } from 'react-i18next';
 import PersonalChat from '../Messages/PersonalChat/PersonalChat';
 import Agenda from '../../screens/Ageda';
 import Notification from '../../screens/Notification';
+import AgendaMessage from '../Agenda/AgendaMessage/AgendaMessage';
 
 const MessagePage = () => {
     const Stack = createNativeStackNavigator()
@@ -159,6 +159,11 @@ const ScreenMenu = () => {
                     <Stack.Screen 
                         name="PersonalChat" 
                         component={PersonalChat} 
+                        options={{
+                    }}/>
+                    <Stack.Screen 
+                        name="AgendaChat" 
+                        component={AgendaMessage} 
                         options={{
                     }}/>
                 </>
