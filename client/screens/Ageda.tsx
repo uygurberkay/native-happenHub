@@ -109,6 +109,7 @@ const styles = StyleSheet.create({
         flex: 1,
         borderWidth: 1,
         borderColor: Styles.colors.lightBlue,
+        backgroundColor: Styles.colors.white,
     },
     tabContainer: {
         zIndex: 1,

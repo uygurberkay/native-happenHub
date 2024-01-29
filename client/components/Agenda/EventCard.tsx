@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Image, Pressable } from 'react-native'
+import { View, Text, StyleSheet, Image, Pressable, Alert } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import moment from 'moment';
 import { Feather } from '@expo/vector-icons';
@@ -43,6 +43,12 @@ const EventCard: React.FC<EventCardProps>  = ({events}) => {
     const navigation = useNavigation<ChatScreenNavigationProp>();
     const [collaboratorsDetails, setCollaboratorsDetails] = useState<Collaborator[]>([]);
 
+    const handlePro = ( ) => {
+        Alert.alert('Feature not available', 'Upgrade your subscription', [
+            {text: 'OK', onPress: () => {}},
+        ]);
+    }
+
     useEffect(() => {
       // Fetch details for each collaborator when the component mounts
         const fetchCollaboratorsDetails = async () => {
@@ -75,7 +81,7 @@ const EventCard: React.FC<EventCardProps>  = ({events}) => {
         return collaboratorsDetails.filter((detail) => detail !== null) as Collaborator[];
     };
 
-    console.log('EVENTS --> ',events)
+    // console.log('EVENTS --> ',events)
 
     return (
         <View style={styles.container}>
@@ -117,8 +123,9 @@ const EventCard: React.FC<EventCardProps>  = ({events}) => {
                             ))}
                         </View>
                         <Pressable
-                            onPress={() => 
-                                navigation.navigate('AgendaChat', { eventId : event._id,})
+                            onPress={handlePro
+                                // () => 
+                                // navigation.navigate('AgendaChat', { eventId : event._id,})
                             }
                             style={({pressed}) => [
                                 { backgroundColor: pressed ? 'rgba(89, 86, 86, 0.965)' : 'rgba(255, 255, 255, 0.156)'},

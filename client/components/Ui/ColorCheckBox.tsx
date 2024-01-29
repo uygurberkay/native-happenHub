@@ -4,12 +4,12 @@ import {  ScrollView, StyleSheet,  Text, Pressable, View } from 'react-native';
 import { Styles } from '../../constants/Color';
 
 interface ColorCheckboxMapProps {
-    colorData: any;
     selectedColor: any;
     setSelectedColor: any;
 }
 
-const ColorCheckboxMap = ({colorData, selectedColor, setSelectedColor}: ColorCheckboxMapProps) => {
+const ColorCheckboxMap = ({selectedColor, setSelectedColor}: ColorCheckboxMapProps) => {
+    const colorData = Styles.colorData;
 
     const toggleColor = (color: string, theme: boolean) => {
         // // Check if the color is already selected, then remove it; otherwise, set it as the selected color

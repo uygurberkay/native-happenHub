@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, ScrollView, Modal, FlatList, Pressable, Alert, TextInput } from 'react-native'
-import React, { useContext, useLayoutEffect, useState } from 'react'
+import React, { useContext, useEffect, useLayoutEffect, useState } from 'react'
 import { AuthContext } from '../context/authContext';
 import { Feather, MaterialCommunityIcons, FontAwesome, Entypo } from '@expo/vector-icons';
 import dayjs from 'dayjs';
@@ -28,7 +28,7 @@ type ChatScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Agenda'
 
 
 const CreateTask = () => {
-    const [state, setState]: any = useContext(AuthContext);
+    const [state]: any = useContext(AuthContext);
     const { user, token } = state;
     const userId = user._id;
 
@@ -48,14 +48,11 @@ const CreateTask = () => {
     const [selectedColor, setSelectedColor] = useState(null);
     const [details, setDetails] = useState('') 
     const [isEnabled, setIsEnabled] = useState<boolean>();
-    console.log(isEnabled)
 
     /* DUMMY  */
     const taskCategories = ['Friends', 'Art', 'Events'] 
-    const colaborativeData = [{key: '1',value:'Damla'}, {key: '2',value:'Melis'}, {key: '3',value:'Pelinsu'}, {key: '4',value:'Beyza'}]
-    const colorData = Styles.colorData;
 
-    console.log('SELECTED COLOR --> ', selectedColor)
+    console.log('COLABORATIVES -->', colaboratives)
     /* Header Settings */
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -116,7 +113,7 @@ const CreateTask = () => {
                     startDate: startTime,
                     endDate: endTime,
                     categories: taskCategory,
-                    colaboratives: [ userId,  ], // Bunu sonradan düzelt. Fetchlediğin datanın formatında yap
+                    colaboratives: [ userId, ...colaboratives ], // Bunu sonradan düzelt. Fetchlediğin datanın formatında yap
                     description: details,
                     color: selectedColor,
                     status:isEnabled,
@@ -210,7 +207,6 @@ const CreateTask = () => {
                             colaboratives={colaboratives}
                             setColaboratives={setColaboratives}
                             taskCategories={taskCategories}
-                            colaborativeData={colaborativeData}
                         />
                         {/* Details */}
                         <TextInput
@@ -226,7 +222,6 @@ const CreateTask = () => {
                 <View style={styles.bottomContainer}>
                 <View style={styles.colorCheckBox}>
                     <ColorCheckBox 
-                        colorData={colorData} 
                         selectedColor={selectedColor} 
                         setSelectedColor={setSelectedColor}
                     />

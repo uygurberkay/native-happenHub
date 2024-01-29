@@ -1,21 +1,5 @@
 import { StatusCodes } from "http-status-codes";
 import messageModel from '../models/messageModel.js'
-import multer from 'multer'
-import { upload } from "../middleware/multerMiddleware.js";
-
-// // Configure multer for handling file uploads
-// const storage = multer.diskStorage({
-//     destination: function (req, file, cb) {
-//         cb(null, "files/"); // Specify the desired destination folder
-//     },
-//     filename: function (req, file, cb) {
-//         // Generate a unique filename for the uploaded file
-//         const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-//         cb(null, uniqueSuffix + "-" + file.originalname);
-//     },
-// });
-
-// const upload = multer({ storage: storage });
 
 /* Controllers */
 
