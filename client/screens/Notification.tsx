@@ -6,6 +6,7 @@ import {
 import React, { useContext } from 'react'
 import { AuthContext } from '../context/authContext'
 import TimeSelectModal from '../components/Ui/TimeSelectModal';
+import NotificationScreen from '../components/Messages/Notification/NotificationScreen';
 
 const Notification = () => {
     /* Authenticaton */
@@ -13,7 +14,7 @@ const Notification = () => {
 
     return (
         <View style={styles.container}>
-            <Text>Notification</Text>
+            <NotificationScreen />
         </View>
     )
 }
