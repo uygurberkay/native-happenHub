@@ -35,5 +35,17 @@
     "Colaborate with": "Colaborate with",
     "Colaboratives": "Colaboratives",
     "Details": "Details",
-    "User not found": "User not found"
+    "User not found": "User not found",
+    "Stop all": "Stop all",
+    "Silence notifications for a time" : "Silence notifications for a time",
+    "Quite mode": "Quite mode",
+    "Silence notifications on nights": "Silence notifications on nights",
+    "Group notifications" : "Group notifications",
+    "Silence group notifications" : "Silence group notifications",
+    "Messages" : "Messages",
+    "Silence all messages": "Silence all messages",
+    "Birthday notifications": "Birthday notifications",
+    "Silence birthday notifications": "Silence birthday notifications",
+    "From happenHub": "From happenHub",
+    "Silence notifications from happenHub": "Silence notifications from happenHub"
 }

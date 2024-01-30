@@ -35,5 +35,17 @@
     "Colaborate with": "Ekip arkadaşı ekle",
     "Colaboratives": "Ekip",
     "Details": "Detaylar",
-    "User not found": "Kullanıcı bulunamadı"
+    "User not found": "Kullanıcı bulunamadı",
+    "Stop all": "Tümünü durdur",
+    "Silence notifications for a time" : "Bildirimleri belirli bir süre sustur",
+    "Quite mode": "Sessiz mod",
+    "Silence notifications on nights": "Gece bildirimlerini sustur",
+    "Group notifications" : "Grup bildirimleri",
+    "Silence group notifications" : "Grup bildirimlerini sustur",
+    "Messages" : "Mesajlar",
+    "Silence all messages": "Tüm mesajları sustur",
+    "Birthday notifications": "Doğum günü bildirimleri",
+    "Silence birthday notifications": "Doğum günü bildirimlerini sustur",
+    "From happenHub": "happenHub'tan",
+    "Silence notifications from happenHub": "happenHub bildirimlerini sustur"
 }
