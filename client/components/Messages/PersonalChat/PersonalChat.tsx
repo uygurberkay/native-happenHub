@@ -98,7 +98,7 @@ const ChatMessagesScreen = () => {
       formData.append("messageType", "text");
       formData.append("messageText", message);
 
-      const response = await fetch("http://192.168.1.105:4000/api/v1/message/send", {
+      const response = await fetch("https://happenhub-backend.onrender.com/api/v1/message/send", {
         method: "POST",
         body: formData,
         headers: {
